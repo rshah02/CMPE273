@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const users = require('../data/user')
+//const users = require('../data/user')
 const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 
@@ -33,15 +33,15 @@ router.get('/', function (req, res) {
     }
 }); */
 
-router.post('/',function(req,res){
+//router.post('/',function(req,res){
     
-        console.log("Inside Login Post Request");
+       // console.log("Inside Login Post Request");
     //console.log("Req Body : ", username + "password : ",password);
-    console.log("Req Body : ",req.body);
-    users.filter(function(user){
-        if(user.username === req.body.username && user.password === req.body.password){
+   // console.log("Req Body : ",req.body);
+    //users.filter(function(user){
+     /*  if(user.username === req.body.username && user.password === req.body.password){
             res.cookie('cookie',"admin",{maxAge: 900000, httpOnly: false, path : '/'});
-            req.session.user = user;
+          //  req.session.user = user;
             res.writeHead(200,{
                 'Content-Type' : 'text/plain'
             })
@@ -50,7 +50,7 @@ router.post('/',function(req,res){
     });
 });
 // Create application/json parser
-var jsonParser = bodyParser.json();
+var jsonParser = bodyParser.json();*/
 
 
 module.exports = router;

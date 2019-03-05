@@ -5,21 +5,22 @@ const bodyParser=require('body-parser');
 const session=require('express-session');
 const cookieParser=require('cookie-parser');
 var cors = require('cors');
-
+var port=process.env.PORT||3001
 
 const signupRoute=require("./routes/signup");
 const loginRoute=require("./routes/login");
 const logoutRoute=require("./routes/logout")
 const dashboardRoute=require("./routes/dashboard");
 const coursesRoute=require("./routes/courses")
-app.use(bodyParser.urlencoded({extended:true}));
+const Users=require("./routes/Users");
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(methodOverride('_method'));
 app.use(express.static(__dirname+'/public'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 //install cross origin reference 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-
+//app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors());
 app.use(session({
     key:'user_sid',
     secret:'lab1 pro',
@@ -50,7 +51,10 @@ app.get('/',function(req,res){
     res.render('login');
     
 })
-var mysql      = require('mysql');
+
+app.use('/users',Users)
+
+/*var mysql      = require('mysql');
 var connection = mysql.createConnection({
     host     : 'localhost',
     database : 'Canvas',
@@ -74,7 +78,7 @@ connection.query('SELECT * FROM users', function (error, results, fields) {
     results.forEach(result => {
         console.log(result);
     });
-});
+}); */
 
 //connection.end();
 //This example creates a MySQL connection object that connects to the MySQL database. A
@@ -83,4 +87,4 @@ app.use("/login",loginRoute)
 app.use("logout",logoutRoute)
 app.use("/dashboard",dashboardRoute)
 app.use("/courses",coursesRoute)*/
-app.listen(3001, _=>console.log("server running on 3001"));
+app.listen(port, _=>console.log("server running on 3001"));
