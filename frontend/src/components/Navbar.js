@@ -30,7 +30,7 @@ const userLink=(
                 </li>
                 <li className="nav-item">
                    
-                        <a href="" onClick={this.logOut.bind(this)} className="nav-link">
+                        <a href="/login" onClick={this.logOut.bind(this)} className="nav-link">
                         logOut
                         </a>
                     

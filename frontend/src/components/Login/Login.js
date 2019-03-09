@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../../App.css';
-import axios from 'axios';
+//import axios from 'axios';
 import {login} from '../UserFunctions'
 
 //Define a Login Component
@@ -35,37 +35,12 @@ class Login extends Component{
 
         login(user).then(res=>{
             if(res){
-                this.props.history.push('/profile')
+                this.props.history.push(`/profile`)
             }
         })
     }
     //Call the Will Mount to set the auth Flag to false
-    componentWillMount(){
-        this.setState({
-            authFlag : false
-        })
-    
-    //username change handler to update state variable with the text entered by the user
    
-    //Submit Login handler to send a request to the node backend
-    
-        //set the with credentials to true
-      //  axios.defaults.withCredentials = true;
-        //make a post request with the user data
-     /*   axios.post('http://localhost:3001/login',data)
-            .then(response => {
-                console.log("Status Code : ",response.status);
-                if(response.status === 200){
-                    this.setState({
-                        authFlag : true
-                    })
-                }else{
-                    this.setState({
-                        authFlag : false
-                    })
-                }
-            }); */
-    }
 
     render(){
         //redirect based on successful login
@@ -74,9 +49,9 @@ class Login extends Component{
             redirectVar = <Redirect to= "/dashboard"/>
         } */
         return(
-            <div>
-            {/*    {redirectVar} */}
-            <div class="container">
+            
+           
+            <div className="container">
                 <div className="row">
                 <div className="col-md-6 mt-5 mx-auto">
                 <form noValidate onSubmit={this.onSubmit}>
@@ -108,7 +83,7 @@ class Login extends Component{
                 </div>
                 </div>
                         
-                        </div>
+                        
                         </div>
         )
     }
