@@ -4,7 +4,7 @@
     "password": "admin"
 }]*/
 
-const Sequelize=require("sequelize");
+/*const Sequelize=require("sequelize");
 const db={}
 const sequelize=new Sequelize("Canvas","root","",{
     host:'localhost',
@@ -19,6 +19,17 @@ const sequelize=new Sequelize("Canvas","root","",{
 })
 
 db.sequelize=sequelize
-db.Sequelize=Sequelize
+db.Sequelize=Sequelize */
+var mysql = require('mysql')
+var db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'canvas'
+});
 
-module.exports=db
+db.connect(function (err) {
+    if (err) throw err;
+    console.log("connected");
+})
+module.exports = db;

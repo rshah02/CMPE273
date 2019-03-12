@@ -14,16 +14,15 @@ class App extends Component {
     
      <Router>
         <div className="App">
-        <Navbar />
-
-        <Route exact path="/" component={LandingPage}/>
-        <div className="container">
-        <Route exact path="/login" component={Login}/>
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/profile" component={Profile} />
-
-                </div>
-                </div>
+          <Navbar />
+          <Route exact path="/" component={LandingPage}/>
+        
+         <div className="container">
+           <Route exact path="/login" component={Login}/>
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/profile" component={Profile} />
+          </div>
+        </div>
      </Router>
      
     );

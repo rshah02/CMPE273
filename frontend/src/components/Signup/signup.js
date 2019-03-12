@@ -56,10 +56,10 @@ class SignUp extends Component{
                     <h1 className="h3 mb-3 font-weight-bold">Sigh In</h1>
                     <div className="form-group">
                         <div className="radio">
-                             <label><input type="radio" name="type" value="Faculty" /> Faculty </label>
+                             <label><input type="radio" name="type" value="Faculty" onChange={this.onChange} /> Faculty </label>
                         </div>
-                         <div class="radio">
-                             <label><input type="radio" name="type" value="Student"/>Student </label>
+                         <div className="radio">
+                             <label><input type="radio" name="type" value="Student" onChange={this.onChange}/>Student </label>
                          </div>
                     </div>
                    

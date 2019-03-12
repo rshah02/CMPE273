@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import {Link, withRouter} from 'react-router-dom'
 class Navbar extends Component{
     logOut(e){
-        e.prventDefault()
+        //e.prventDefault()
         localStorage.removeItem('usertoken')
         this.props.history.push('/')
     }
@@ -30,9 +30,9 @@ const userLink=(
                 </li>
                 <li className="nav-item">
                    
-                        <a href="/login" onClick={this.logOut.bind(this)} className="nav-link">
+                        <Link to="" onClick={this.logOut.bind(this)} className="nav-link">
                         logOut
-                        </a>
+                        </Link>
                     
                 </li>
             </ul>

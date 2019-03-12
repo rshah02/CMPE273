@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import jwt_decode from 'jwt-decode'
-
+import{profile} from '../UserFunctions'
 
 class Profile extends Component{
     constructor(){
@@ -19,10 +19,35 @@ class Profile extends Component{
             hometown:""
 
         }
+        this.onChange=this.onChange.bind(this)
+        this.onSubmit=this.onSubmit.bind(this)
+    }
+    onChange(e){
+        this.setState({[e.target.name]:e.target.value})
+    }
+    onSubmit (e) {
+        e.preventDefault()
+
+        const user = {
+            name: this.state.name,
+            email: this.state.email,
+            type:this.state.type,
+            city:this.state.city,
+            phone:this.state.phone,
+            country:this.state.country,
+            school:this.state.school,
+            company:this.state.company,
+            languages:this.state.languages
+        }
+
+        profile(user)
+        .then(res => {
+            this.props.history.push(`/profile`)
+        })
     }
 
     componentDidMount(){
-        const token=localStorage.usertoken
+        let token=localStorage.usertoken
         const decoded=jwt_decode(token)
         this.setState({
             name:decoded.name,
@@ -41,21 +66,27 @@ class Profile extends Component{
 
     render(){
             return(
-                <div className="container">
+               
                     <div className="row">
+                    <div className="col-md-10 mt-5 mx-auto">
                         <form onSubmit={this.onSubmit}>
-                            <div className="col-md-4">
+                            <div className="col-md-12">
                                 <img src="#" alt="profilePhoto"></img>
                             </div>
-                            <div className="col-md-8">
-                                <div className="form-group">
-                                    <label htmlFor="name">Name</label>
-                                    <input type="text" 
-                                    className="form-control" 
-                                    name="name" 
-                                    value={this.state.name}
-                                    onChange={this.onChange}
+                            <div className="col-md-12">
+                                <div className="form-group row">
+                                    <div className="col-md-4">
+                                         <label htmlFor="name">Name</label>
+                                    </div>
+                                   <div className="col-md-8">
+                                         <input type="text" 
+                                          className="form-control" 
+                                         name="name" 
+                                         value={this.state.name}
+                                         onChange={this.onChange}
                                     />
+                                   </div>
+                                  
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="email">E-mail</label>
@@ -123,9 +154,9 @@ class Profile extends Component{
                                 <button className="btn btn-primary btn-block">Update</button>
                             </div>
                         </form>
+                        </div>
+                    </div>
                 
-                </div>
-                </div>
             )
     }
 }
