@@ -48,6 +48,7 @@ users.post('/profile', (req, res) => {
 })
 
 users.post("/login", (req, res) => {
+
     var email = req.body.email;
     var password = req.body.password;
     con.query('SELECT * FROM users WHERE email = ?', [email], function (error, results, fields) {
@@ -81,4 +82,8 @@ users.post("/login", (req, res) => {
     })
 
 })
+
+
+
+
 module.exports = users
