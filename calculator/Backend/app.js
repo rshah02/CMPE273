@@ -3,7 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-
+var logger = require('morgan')
 var index = require('./routes/index');
 var compute = require('./routes/compute');
 var app = express();
@@ -11,13 +11,14 @@ var app = express();
 app.use(cors());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/', index)
-app.use('/compute', compute)
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', index);
+app.use('/compute', compute);
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -34,4 +35,4 @@ app.use(function (err, req, res, next) {
     res.json("error");
 });
 
-app.listen(3005, console.log("listening on port 3005"))
+module.exports = app;

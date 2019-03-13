@@ -11,14 +11,14 @@ class Calculator extends Component {
     handleComputation = (expression) => {
         const Expression = { "exp": expression };
         API.doComuptation(Expression)
-            .then((res) => {
-                if (res.finalResult === null) {
+            .then((response) => {
+                if (response.finalResult === null) {
                     this.setState({
                         result: "Infinity"
                     });
                 } else {
                     this.setState({
-                        result: res.finalResult
+                        result: response.finalResult
                     });
                 }
             });
@@ -39,7 +39,7 @@ class Calculator extends Component {
                     <div className="col-lg-4"></div>
                 </div>
             </div>
-        )
+        );
     }
 
 
