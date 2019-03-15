@@ -83,7 +83,18 @@ users.post("/login", (req, res) => {
 
 })
 
+users.get("/courses", (req, res) => {
 
+    const sql = "SELECT * from enrollment e,course c WHERE e.userId=" + mysql.escape(req.body.userId) + " AND e.courseId=c.courseId";
+    con.query(sql, (err, results) => {
+        if (results) {
+            res.status(200).json(results)
+            console.log(results)
+        } else {
+            res.status(400).json({ message: err })
+        }
+    })
+})
 
 
 module.exports = users

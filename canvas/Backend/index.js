@@ -9,8 +9,9 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 var Users = require('./routes/Users')
-
+var courses = require('./routes/courses')
 app.use('/users', Users)
+app.use('/courses', courses)
 
 app.listen(port, () => {
     console.log("Server is running on port: " + port)
