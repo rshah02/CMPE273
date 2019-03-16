@@ -10,9 +10,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 var Users = require('./routes/Users')
 var courses = require('./routes/courses')
+var permissonNumber = require('./routes/permissonNumber')
 app.use('/users', Users)
 app.use('/courses', courses)
-
+app.use('courses/permissonNumber', permissonNumber)
 app.listen(port, () => {
     console.log("Server is running on port: " + port)
 })
