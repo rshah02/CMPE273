@@ -7,6 +7,7 @@ router.get('/', function (req, res, next) {
 router.post('/doComputation', function (req, res, next) {
     var reqExpression = req.body.exp;
     try {
+        console.log(req.body.exp)
         var result = eval(reqExpression);
         res.status(200).send({ finalResult: result })
     } catch (e) {
