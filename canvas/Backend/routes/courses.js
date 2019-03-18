@@ -43,6 +43,7 @@ route.post('/', (req, res) => {
 route.get('/assignments', function (req, res) {
     const sql = "SELECT * FROM assignment WHERE courseId=" + mysql.escape(req.body.courseId) + " AND assignmentType='assignment'";
     con.query(sql, (err, result) => {
+
         if (result) {
             res.status(200).json(result)
         } else {

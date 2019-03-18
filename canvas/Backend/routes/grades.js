@@ -1,12 +1,12 @@
 const express = require("express")
 const route = express.Router()
-const bcrypt = require('bcrypt')
 const mysql = require('mysql')
 var con = require("../database/db")
 //all grades for one course and student 
 route.get('/', function (req, res) {
 
-    const sql = "SELECT * FROM submission s where s.userId=" + mysql.escape(req.body.userId) + " and s.courseId =" + mysql.escape(req.body.courseId);
+    const sql = "SELECT * FROM submission s where s.userId=" + mysql.escape(req.body.userId) +
+        " and s.courseId =" + mysql.escape(req.body.courseId);
 
     con.query(sql, function (err, result) {
         if (result) {

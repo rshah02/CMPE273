@@ -87,6 +87,7 @@ users.get("/courses", (req, res) => {
 
     const sql = "SELECT * from enrollment e,course c WHERE e.userId=" + mysql.escape(req.body.userId) + " AND e.courseId=c.courseId";
     con.query(sql, (err, results) => {
+        console.log(sql)
         if (results) {
             res.status(200).json(results)
             console.log(results)

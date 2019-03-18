@@ -37,7 +37,6 @@ font-size: 14px;
 font-weight: normal;
 line-height: 1.4;
 background-color: #f9f9f9;
-color: #777;
 position: relative;
 overflow: auto;
 border-radius: 3px;
@@ -48,6 +47,7 @@ margin: 100px auto 8px;
     margin-top: 100px;
 width: 400px;
 min-width: 300px;
+padding: 20px;
 }
 .auth{
 background-color: #fff;
@@ -57,16 +57,14 @@ box-shadow: 0 2px 0 rgba(175, 175, 175, 0.12);
 
 .loginHeaderContainer{
   position: relative;
-width: 400px;
-min-width: 300px;
-margin: 0 auto;
+  margin: 0 auto;
 padding: 20px 0;
 box-sizing: border-box;
-text-align: center;
 }
 
 .loginHeaderContainer h1 {
   font-size: 24px;
   font-weight: lighter;
   line-height: 26px;
+  text-align: right;
 }

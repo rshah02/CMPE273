@@ -1,8 +1,6 @@
 const express = require("express")
 const route = express.Router()
 const fileUpdload = require('express-fileupload')
-const bcrypt = require('bcrypt')
-const mysql = require('mysql')
 route.use(fileUpdload())
 route.use('/public', express.static(__dirname + '/public'))
 route.post('/file', (req, res, next) => {
