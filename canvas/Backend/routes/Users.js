@@ -51,6 +51,7 @@ users.post("/login", (req, res) => {
 
     var email = req.body.email;
     var password = req.body.password;
+
     con.query('SELECT * FROM users WHERE email = ?', [email], function (error, results, fields) {
         if (error) {
             res.json({
@@ -85,7 +86,8 @@ users.post("/login", (req, res) => {
 
 users.get("/courses", (req, res) => {
 
-    const sql = "SELECT * from enrollment e,course c WHERE e.userId=" + mysql.escape(req.body.userId) + " AND e.courseId=c.courseId";
+    console.log(req.query)
+    const sql = "SELECT * from enrollment e,course c WHERE e.userId=" + mysql.escape(req.query.userId) + " AND e.courseId=c.courseId";
     con.query(sql, (err, results) => {
         console.log(sql)
         if (results) {

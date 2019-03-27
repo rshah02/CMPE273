@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import "../../App.css";
 import { login } from "../UserFunctions";
-import PropTypes from "prop-types";
-//import { signup } from "../UserFunctions";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 class Login extends Component {
@@ -106,4 +104,7 @@ class Login extends Component {
     );
   }
 }
-export default withRouter(Login);
+export default connect(
+  null,
+  { login }
+)(withRouter(Login));
