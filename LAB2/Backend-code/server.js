@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 var Users = require("./routes/Users");
+var profile = require("./routes/profile");
 //passport Middleware
 require("./middlewares/passport")(passport);
 
@@ -29,6 +30,7 @@ app.use('/permissonNumber', permissonNumber)
 app.use('/enrollment', enrollment)
 app.use('/users/courses/grades', grades) */
 app.use("/users", Users);
+app.use("/users/profile", profile);
 app.listen(port, () => {
   console.log("Server is running on port: " + port);
 });

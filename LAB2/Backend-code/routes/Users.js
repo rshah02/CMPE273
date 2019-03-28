@@ -5,13 +5,44 @@ const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 var con = require("../database/db");
 const passport = require("passport");
+const gravatar = require("gravatar");
+const User = require("../models/User");
 
 router.get("/test", (req, res) => {
   res.json({ message: "hello" });
 });
 
 router.post("/signup", (req, res) => {
-  bcrypt.hash(req.body.password, 10, (err, hash) => {
+  User.findOne({ email: req.body.email }).then(user => {
+    if (user) {
+      return res.status(400).json({ email: "email already exists" });
+    } else {
+      const avatar = gravatar.url(req.body.email, {
+        s: "200", //size
+        r: "pg", //rating
+        d: "mm" //default
+      });
+
+      bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) {
+          throw err;
+        }
+        const newUser = new User({
+          name: req.body.name,
+          email: req.body.email,
+          type: req.body.type,
+          avatar,
+          password: hash
+        });
+        newUser
+          .save()
+          .then(user => res.json(user))
+          .catch(err => console.log(err));
+      });
+    }
+  });
+
+  /* bcrypt.hash(req.body.password, 10, (err, hash) => {
     const sql =
       "INSERT INTO users (name,email,password,type)VALUES(" +
       mysql.escape(req.body.name) +
@@ -33,45 +64,40 @@ router.post("/signup", (req, res) => {
         });
       }
     });
-  });
-});
-
-router.post("/profile", (req, res) => {
-  let sql =
-    "UPDATE users SET name=" +
-    mysql.escape(req.body.name) +
-    ",phone=" +
-    mysql.escape(req.body.phone) +
-    ",city=" +
-    mysql.escape(req.body.city) +
-    ",country=" +
-    mysql.escape(req.body.country) +
-    ",school=" +
-    mysql.escape(req.body.school) +
-    ",company=" +
-    mysql.escape(req.body.company) +
-    ",languages=" +
-    mysql.escape(req.body.languages) +
-    ",about=" +
-    mysql.escape(req.body.about) +
-    " WHERE email=" +
-    mysql.escape(req.body.email);
-  con.query(sql, function(err, result) {
-    if (result) {
-      res.send({
-        message: "profile updated"
-      });
-    } else {
-      console.log(err);
-    }
-  });
+  }); */
 });
 
 router.post("/login", (req, res) => {
   var email = req.body.email;
   var password = req.body.password;
 
-  con.query("SELECT * FROM users WHERE email = ?", [email], function(
+  User.findOne({ email }).then(user => {
+    if (!user) {
+      return res.status(404).json({ email: "User not found" });
+    }
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        const payload = {
+          id: user.id,
+          name: user.name,
+          avatar: user.avatar,
+          email: user.email
+        };
+
+        //sign Token
+        jwt.sign(payload, "secret", { expiresIn: 3600 }, (err, token) => {
+          res.json({
+            success: true,
+            token: "Bearer " + token
+          });
+          console.log("Bearer " + token);
+        });
+      } else {
+        return res.status(400).json({ password: "incorrect password" });
+      }
+    });
+  });
+  /* con.query("SELECT * FROM users WHERE email = ?", [email], function(
     error,
     results,
     fields
@@ -123,7 +149,7 @@ router.post("/login", (req, res) => {
         });
       }
     }
-  });
+  }); */
 });
 
 router.get(
@@ -152,7 +178,7 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     console.log("current");
-    res.json({ message: "success" });
+    res.json(req.user);
   }
 );
 module.exports = router;
