@@ -5,17 +5,31 @@ const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 var con = require("../database/db");
 const passport = require("passport");
-
+const User = require("../models/User");
 router.get("/", (req, res) => {
-  res.json({ message: "this works" });
+  console.log("email:" + req.query.email);
+  const email = req.query.email;
+  User.findOne({ email }).then(user => {
+    console.log(user);
+    res.json(user);
+  });
 });
 
-/*router.get("/", (req, res) => {
-  let sql =
-    "SELECT * FROM users where userId=" + mysql.escape(req.query.userId);
-});
 router.post("/", (req, res) => {
-  let sql =
+  User.findOneAndUpdate(
+    req.body.email,
+    {$set:req.body},
+    { new: true },
+    (err, result) => {
+      console.log(result );
+      if (err) return res.status(500).send(err);
+
+      return res.json(result);
+    }
+  );
+  console.log("called");
+
+  /*let sql =
     "UPDATE users SET name=" +
     mysql.escape(req.body.name) +
     ",phone=" +
@@ -42,7 +56,7 @@ router.post("/", (req, res) => {
     } else {
       console.log(err);
     }
-  });
-});*/
+  }); */
+});
 
 module.exports = router;

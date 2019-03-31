@@ -46,7 +46,10 @@ const UserSchema = new Schema({
   },
   type: {
     type: String
+  },
+  homeTown: {
+    type: String
   }
 });
 
-module.exports = User = mongoose.model("users", UserSchema);
+module.exports = mongoose.model("users", UserSchema);

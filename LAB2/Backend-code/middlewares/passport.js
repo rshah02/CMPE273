@@ -21,13 +21,6 @@ module.exports = passport => {
         .catch(err => {
           console.log(err);
         });
-      /* const sql = "Select * from users where userId=" + jwt_payload.userId;
-      con.query(sql, (err, results) => {
-        if (results) {
-          return done(null, results);
-        }
-        return done(null, false);
-      }); */
     })
   );
 };
