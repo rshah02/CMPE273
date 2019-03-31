@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../../App.css";
-import { login } from "../UserFunctions";
+import { login } from "../../actions/authaction";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 class Login extends Component {
@@ -19,35 +20,39 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/profile");
+    }
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
   onSubmit(e) {
     e.preventDefault();
     console.log("submit");
 
-    const user = {
+    const userData = {
       email: this.state.email,
       password: this.state.password
     };
 
-    login(user).then(res => {
-      console.log("login passed " + res);
-      if (res) {
-        this.props.history.push(`courses`);
-      }
-    });
+    this.props.login(userData);
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <div>
-        <div className="container-fluid auth">
+        <div className="container auth">
           <div className="row">
             <div className="col-lg-4" />
             <div className="col-lg-4">
               <div className="row">
-                <div className="col-sm-6 loginHeaderContainer">
+                <div className="col-lg-6 loginHeaderContainer">
                   <h1>Connecting to</h1>
                 </div>
-                <div className="col-sm-6 loginHeaderContainer">
+                <div className="col-lg-6 loginHeaderContainer">
                   <div className="loginLogo">
                     <img
                       src="https://ok2static.oktacdn.com/bc/image/fileStoreRecord?id=fs0kbuxex4ds7v2rN0x7"
@@ -104,7 +109,17 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
 export default connect(
-  null,
+  mapStateToProps,
   { login }
 )(withRouter(Login));
