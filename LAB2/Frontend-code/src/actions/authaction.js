@@ -25,7 +25,7 @@ export const signup = (request, history) => dispatch => {
       company: request.company,
       languages: request.languages
     })
-    .then(res => history.push("login"))
+    .then(res => history.push("/"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import "../../App.css";
 import axios from "axios";
@@ -8,6 +8,9 @@ import CourseSideBar from "../CourseSideBar/CourseSideBar";
 import Navbar from "../Navbar/Navbar";
 import Header from "../Header/Header";
 import People from "../People/People";
+import Assignments from "../Assignments/Assignments";
+import Announcements from "../Assignments/Assignments";
+import Files from "../Files/Files";
 class courses extends Component {
   constructor() {
     super();
@@ -40,11 +43,6 @@ class courses extends Component {
         </tr>
       );
     });
-    //if not logged in go to login page
-    /*  let redirectVar = null;
-          if (!cookie.load('cookie')) {
-              redirectVar = <Redirect to="/login" />
-          } */
     return (
       <div className="row">
         <div className="col-lg-1">
@@ -56,10 +54,18 @@ class courses extends Component {
             <div className="col-lg-3">
               <CourseSideBar />
             </div>
-            <div class="col-lg-9">
-              {/*<Route exact path="/" component={LandingPage}/> */}
-              <div class="col-lg-12">
-                <Route path="/people" component={People} />
+            <div className="col-lg-9">
+              <div className="col-lg-12 courseContents">
+                <Switch>
+                  <Route path="/courses/home" component={Home} />
+                  <Route path="/courses/people" component={People} />
+                  <Route
+                    path="/courses/Announcements"
+                    component={Announcements}
+                  />
+                  <Route path="/courses/Assignments" component={Assignments} />
+                  <Route path="/courses/Files" component={Files} />
+                </Switch>
               </div>
             </div>
           </div>
@@ -68,5 +74,7 @@ class courses extends Component {
     );
   }
 }
-//export Home Component
+
 export default withRouter(courses);
+
+const Home = props => <div>Home</div>;

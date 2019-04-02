@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Coursecard from "../Coursecard/Coursecard";
 import "../../App.css";
 import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Header from "../Header/Header";
-
+import newCourse from "../newCourse/newCourse";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -37,19 +37,32 @@ class Dashboard extends Component {
   render() {
     let courses = [];
     Object.assign(courses, this.state.courses);
-    const isStudent = true;
+    const isStudent = false;
     return (
       <div>
         <Navbar />
         <Header title="Dashboard" />
         <div className="pageContent">
+          <div className="row">
+            {isStudent ? (
+              <Link to="/course/search">
+                <button className="btn btn-primary">Search Course</button>{" "}
+              </Link>
+            ) : (
+              <Link to="/Dashboard/newCourse">
+                <button className="btn btn-primary">Add Course</button>
+              </Link>
+            )}
+          </div>
+          <hr />
           <div className="row mycourses">
             {courses.map((course, index) => {
               return (
                 <Coursecard
                   key={index}
                   num={index}
-                  id={course.courseId}
+                  id={course._id}
+                  dept={course.courseDept}
                   name={course.courseName}
                   term={course.courseTerm}
                 />
@@ -58,15 +71,11 @@ class Dashboard extends Component {
           </div>
 
           <hr />
-          {isStudent ? (
-            <Link to="/course/search">
-              <button className="btn btn-primary">Search Course</button>{" "}
-            </Link>
-          ) : (
-            <Link to="/course/new">
-              <button className="btn btn-primary">Add Course</button>
-            </Link>
-          )}
+          <div className="row">
+            <Switch>
+              <Route path="/Dashboard/newCourse" component={newCourse} />
+            </Switch>
+          </div>
         </div>
       </div>
     );

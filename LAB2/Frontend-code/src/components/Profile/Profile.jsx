@@ -12,7 +12,18 @@ class Profile extends Component {
   constructor() {
     super();
     this.state = {
-      userData: ""
+      userData: "",
+      name: "",
+      email: "",
+      phone: "",
+      city: "",
+      country: "",
+      homeTown: "",
+      school: "",
+      company: "",
+      languages: "",
+      gender: "",
+      about: ""
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -26,22 +37,34 @@ class Profile extends Component {
     e.preventDefault();
 
     const user = {
-      name: this.state.userData.name,
-      email: this.state.userData.email,
-      avatar: this.state.userData.avatar,
-      type: this.state.userData.type,
-      city: this.state.userData.city,
-      phone: this.state.userData.phone,
-      country: this.state.userData.country,
-      school: this.state.userData.school,
-      company: this.state.userData.company,
-      languages: this.state.userData.languages,
-      homeTown: this.state.userData.homeTown
+      name: this.state.name,
+      email: this.state.email,
+      //avatar: this.state.userData.avatar,
+      type: this.state.type,
+      city: this.state.city,
+      phone: this.state.phone,
+      country: this.state.country,
+      school: this.state.school,
+      company: this.state.company,
+      languages: this.state.languages,
+      homeTown: this.state.homeTown,
+      about: this.state.about
     };
-    axios.post("http://localhost:3001/users/profile", user).then(res => {
-      console.log(res.data);
+    axios.post("http://localhost:3001/users/profile", user).then(response => {
+      console.log(response.data);
       this.setState({
-        userData: res.data
+        userData: response.data,
+        name: response.data.name,
+        email: response.data.email,
+        phone: response.data.phone,
+        city: response.data.city,
+        country: response.data.country,
+        homeTown: response.data.homeTown,
+        school: response.data.school,
+        company: response.data.company,
+        languages: response.data.languages,
+        gender: response.data.gender,
+        about: response.data.about
       });
     });
 
@@ -63,14 +86,26 @@ class Profile extends Component {
       .then(response => {
         console.log(response.data);
         this.setState({
-          userData: response.data
+          userData: response.data,
+          name: response.data.name,
+          email: response.data.email,
+          phone: response.data.phone,
+          city: response.data.city,
+          country: response.data.country,
+          homeTown: response.data.homeTown,
+          school: response.data.school,
+          company: response.data.company,
+          languages: response.data.languages,
+          gender: response.data.gender,
+          about: response.data.about
         });
       });
   }
   logOut(e) {
     //e.prventDefault()
     localStorage.removeItem("jwtToken");
-    this.props.history.push("/login");
+
+    this.props.history.push("login");
   }
   render() {
     return (
@@ -79,36 +114,6 @@ class Profile extends Component {
 
         <div className="container">
           <div className="row">
-            {/*    <div className="profilecolumn hide " id="abc">
-              <div className="profile-upper">
-                <div className="profileImgWrapper">
-                  <div className="profileImg">
-                    <img
-                      src="//www.gravatar.com/avatar/bc5a9a84383c25328d70edc83fc54ac7?s=100&r=pg&d=mm"
-                      className="rounded-circle"
-                    />
-                  </div>
-                </div>
-                <div className="LogoutButtonWrapper">
-                  <Link to="/" onClick={this.logOut.bind(this)}>
-                    <button className="btn">logout</button>
-                  </Link>
-                </div>
-              </div>
-              <div className="profile-lower">
-                <ul>
-                  <li>
-                    <Link to="/courses">Profile</Link>
-                  </li>
-                  <li>
-                    <Link to="/courses">Settings</Link>
-                  </li>
-                  <li>
-                    <Link to="/courses">Files</Link>
-                  </li>
-                </ul>
-              </div>
-    </div> */}
             <div className="col-lg-3" />
             <div className="col-lg-6">
               <h4>Profile</h4>
@@ -124,7 +129,7 @@ class Profile extends Component {
                 </div>
                 <div className="form-group form-inline">
                   <div className="col-lg-3">
-                    <label for="name">Name: </label>
+                    <label labelfor="name">Name: </label>
                   </div>
                   <div className="col-lg-9">
                     <input
@@ -132,7 +137,7 @@ class Profile extends Component {
                       name="name"
                       placeholder="name"
                       className="form-control"
-                      value={this.state.userData.name}
+                      value={this.state.name}
                       onChange={this.onChange}
                     />
                   </div>
@@ -140,7 +145,7 @@ class Profile extends Component {
                 <div className="form-group form-inline">
                   <div className="col-lg-3">
                     {" "}
-                    <label for="Phone">Phone: </label>
+                    <label labelfor="Phone">Phone: </label>
                   </div>
                   <div className="col-lg-9">
                     <input
@@ -149,36 +154,35 @@ class Profile extends Component {
                       name="phone"
                       placeholder="0123456789"
                       pattern="\d{10}"
-                      value={this.state.userData.phone}
-                      title="Enter a valid contact number."
+                      value={this.state.phone}
                       onChange={this.onChange}
                     />
                   </div>
                 </div>
                 <div className="form-group form-inline">
                   <div className="col-lg-3">
-                    <label for="name">E-mail:</label>
+                    <label labelfor="name">E-mail:</label>
                   </div>
                   <div className="col-lg-9">
                     <input
                       type="text"
                       name="email"
                       className="form-control"
-                      value={this.state.userData.email}
+                      value={this.state.email}
                       onChange={this.onChange}
                     />
                   </div>
                 </div>
                 <div className="form-group form-inline">
                   <div className="col-lg-3">
-                    <label for="name">City: </label>
+                    <label labelfor="name">City: </label>
                   </div>
                   <div className="col-lg-9">
                     <input
                       type="text"
                       name="city"
                       className="form-control"
-                      value={this.state.userData.city}
+                      value={this.state.city}
                       onChange={this.onChange}
                     />
                   </div>
@@ -186,49 +190,49 @@ class Profile extends Component {
 
                 <div className="form-group form-inline">
                   <div className="col-lg-3">
-                    <label for="Country">Country: </label>
+                    <label labelfor="Country">Country: </label>
                   </div>
                   <div className="col-lg-9">
                     <input
                       type="text"
                       name="country"
                       className="form-control"
-                      value={this.state.userData.country}
+                      value={this.state.country}
                       onChange={this.onChange}
                     />
                   </div>
                 </div>
                 <div className="form-group form-inline">
                   <div className="col-lg-3">
-                    <label for="company">Company:</label>
+                    <label labelfor="company">Company:</label>
                   </div>
                   <div className="col-lg-9">
                     <input
                       type="text"
                       className="form-control"
                       name="company"
-                      value={this.state.userData.company}
+                      value={this.state.company}
                       onChange={this.onChange}
                     />
                   </div>
                 </div>
                 <div className="form-group form-inline">
                   <div className="col-lg-3">
-                    <label for="school">School:</label>
+                    <label labelfor="school">School:</label>
                   </div>
                   <div className="col-lg-9">
                     <input
                       type="text"
                       name="school"
                       className="form-control"
-                      value={this.state.userData.school}
+                      value={this.state.school}
                       onChange={this.onChange}
                     />
                   </div>
                 </div>
                 <div className="form-group form-inline">
                   <div className="col-lg-3">
-                    <label for="homeTown">Home Town: </label>
+                    <label labelfor="homeTown">Home Town: </label>
                   </div>
                   <div className="col-lg-9">
                     <input
@@ -236,14 +240,14 @@ class Profile extends Component {
                       name="homeTown"
                       className="form-control"
                       placeholder="HomeTown"
-                      value={this.state.userData.homeTown}
+                      value={this.state.homeTown}
                       onChange={this.onChange}
                     />
                   </div>
                 </div>
                 <div className="form-group form-inline">
                   <div className="col-lg-3">
-                    <label for="languages">Languages: </label>
+                    <label labelfor="languages">Languages: </label>
                   </div>
                   <div className="col-lg-9">
                     <input
@@ -251,7 +255,7 @@ class Profile extends Component {
                       name="languages"
                       className="form-control"
                       placeholder="languages"
-                      value={this.state.userData.languages}
+                      value={this.state.languages}
                       onChange={this.onChange}
                     />
                   </div>
@@ -259,7 +263,7 @@ class Profile extends Component {
 
                 <div className="form-group form-inline">
                   <div className="col-lg-3">
-                    <label for="gender">Gender </label>
+                    <label labelfor="gender">Gender </label>
                   </div>
                   <div className="col-lg-9">
                     <input
@@ -268,7 +272,7 @@ class Profile extends Component {
                       value="Male"
                       className="radio-inline"
                       onChange={this.onChange}
-                      checked={this.state.userData.gender === "Male"}
+                      checked={this.state.gender === "Male"}
                     />
                     Male&nbsp;
                     <input
@@ -277,7 +281,7 @@ class Profile extends Component {
                       value="Female"
                       className="radio-inline"
                       onChange={this.onChange}
-                      checked={this.state.userData.gender === "Female"}
+                      checked={this.state.gender === "Female"}
                     />
                     Female
                   </div>
@@ -303,9 +307,9 @@ class Profile extends Component {
 
 Profile.propTypes = {
   //login: PropTypes.func.isRequired,
-  profile: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  //profile: PropTypes.func.isRequired,
+  //auth: PropTypes.object.isRequired
+  //errors: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,

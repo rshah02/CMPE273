@@ -22,8 +22,8 @@ class People extends Component {
       );
     });
     return (
-      <div class="col-lg-12">
-        <table class="table">
+      <div className="col-lg-12">
+        <table className="table">
           <thead>
             <tr>
               <th>Name</th>

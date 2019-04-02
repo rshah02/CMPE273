@@ -7,8 +7,7 @@ import Signup from "./components/Signup/SignUp";
 import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
 import Courses from "./components/Courses/Courses";
-import Navbar from "./components/Navbar/Navbar";
-import { applyMiddleware } from "../../../../../AppData/Local/Microsoft/TypeScript/3.3/node_modules/redux";
+import CourseInfo from "./components/CourseInfo/CourseInfo";
 import Dashboard from "./components/Dashboard/Dashboard";
 
 class App extends Component {
@@ -21,9 +20,10 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Login} />
               <Route exact path="/signup" component={Signup} />
-              <Route exact path="/Dashboard" component={Dashboard} />
+              <Route path="/Dashboard" component={Dashboard} />
               <Route exact path="/profile" component={Profile} />
-              <Route exact path="/courses" component={Courses} />
+              <Route path="/courses" component={Courses} />
+              <Route path="/courses/:id/home" component={Courses} />
             </Switch>
           </div>
         </Router>

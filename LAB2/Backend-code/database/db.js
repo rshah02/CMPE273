@@ -7,26 +7,22 @@ var db = mysql.createConnection({
 });
 
 const mongoose = require("mongoose");
-mongoose.Promise = global.Promise;
-mongoose
+//mongoose.Promise = global.Promise;
+/*mongoose
   .connect("mongodb://localhost:27017/Canvas")
+  .then(() => console.log("Mongo connected"))
+  .catch(err => console.log(err)); 
+*/
+mongoose
+  .connect(
+    "mongodb+srv://Admin:admin@canvas-eg2ol.mongodb.net/Canvas?retryWrites=true",
+    { useNewUrlParser: true }
+  )
   .then(() => console.log("Mongo connected"))
   .catch(err => console.log(err));
 
-/*var db = mysql.createPool({
-    connectionLimit: 100,
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'canvas'
-})*/
-/*db.getConnection(function (err) {
-    if (err) throw err;
-    console.log("connected")
-})*/
-
-db.connect(function(err) {
+/*db.connect(function(err) {
   if (err) throw err;
   console.log("connected");
-});
+}); */
 module.exports = db;

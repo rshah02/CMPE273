@@ -16,38 +16,51 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  User.findOneAndUpdate(
-    req.body.email,
-    {$set:req.body},
+  const email = req.body.email;
+
+  console.log(req.body.email);
+  console.log(req.body.city);
+  User.findOneAndUpdate({ email: email }, req.body, { new: true })
+    .then(result => {
+      console.log(result);
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+
+  /*User.findOneAndUpdate(
+    req.user.email,
+    {$set:req.user},
     { new: true },
     (err, result) => {
       console.log(result );
       if (err) return res.status(500).send(err);
 
       return res.json(result);
-    }
+    } 
   );
   console.log("called");
 
   /*let sql =
     "UPDATE users SET name=" +
-    mysql.escape(req.body.name) +
+    mysql.escape(req.user.name) +
     ",phone=" +
-    mysql.escape(req.body.phone) +
+    mysql.escape(req.user.phone) +
     ",city=" +
-    mysql.escape(req.body.city) +
+    mysql.escape(req.user.city) +
     ",country=" +
-    mysql.escape(req.body.country) +
+    mysql.escape(req.user.country) +
     ",school=" +
-    mysql.escape(req.body.school) +
+    mysql.escape(req.user.school) +
     ",company=" +
-    mysql.escape(req.body.company) +
+    mysql.escape(req.user.company) +
     ",languages=" +
-    mysql.escape(req.body.languages) +
+    mysql.escape(req.user.languages) +
     ",about=" +
-    mysql.escape(req.body.about) +
+    mysql.escape(req.user.about) +
     " WHERE email=" +
-    mysql.escape(req.body.email);
+    mysql.escape(req.user.email);
   con.query(sql, function(err, result) {
     if (result) {
       res.send({

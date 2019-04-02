@@ -7,6 +7,7 @@ var con = require("../database/db");
 const passport = require("passport");
 const gravatar = require("gravatar");
 const User = require("../models/User");
+const mongoose = require("mongoose");
 
 router.post("/login", (req, res) => {
   var email = req.body.email;
@@ -58,6 +59,7 @@ router.post("/signup", (req, res) => {
           throw err;
         }
         const newUser = new User({
+          _id: new mongoose.Types.ObjectId(),
           name: req.body.name,
           email: req.body.email,
           type: req.body.type,
@@ -74,7 +76,7 @@ router.post("/signup", (req, res) => {
 });
 
 router.get(
-  "/courses",
+  "/mycourses",
 
   (req, res) => {
     const sql =

@@ -57,14 +57,17 @@ class Navbar extends Component {
               <br />
               <li>
                 <Link to="/Dashboard">
-                  <i class="fas fa-tachometer-alt fa-3x" />
+                  <i className="fas fa-tachometer-alt fa-3x" />
                   <br />
                   <span className="navbartext">Dashboard</span>
                 </Link>
               </li>
               <br />
               <li>
-                <i class="far fa-user fa-3x" onClick={this.show.bind(this)} />
+                <i
+                  className="far fa-user fa-3x"
+                  onClick={this.show.bind(this)}
+                />
                 <br />
                 <span className="navbartext">Profile</span>
               </li>
@@ -79,7 +82,7 @@ class Navbar extends Component {
               <br />
               <li>
                 <Link to="/courses">
-                  <i class="fas fa-envelope-open-text fa-3x" />
+                  <i className="fas fa-envelope-open-text fa-3x" />
                   <br />
                   <span className="navbartext">Inbox</span>
                 </Link>
@@ -87,8 +90,8 @@ class Navbar extends Component {
               <br />
               <li className="logoutbutton">
                 <span>
-                  <Link to="/login" onClick={this.logOut.bind(this)}>
-                    <i class="fas fa-power-off fa-3x" />
+                  <Link to="/" onClick={this.logOut.bind(this)}>
+                    <i className="fas fa-power-off fa-3x" />
                     <br />
                     <span className="navbartext"> logOut</span>
                   </Link>

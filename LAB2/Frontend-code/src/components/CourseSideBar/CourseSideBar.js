@@ -8,13 +8,13 @@ class CourseSideBar extends Component {
         <div className="coursesidebarInner">
           <ul>
             <li className="rounded">
-              <Link to="/Home">Home</Link>
+              <Link to="/courses/home">Home</Link>
             </li>
             <li className="rounded">
-              <Link to="/Home">Announcements</Link>
+              <Link to="/courses/Announcements">Announcements</Link>
             </li>
             <li className="rounded">
-              <Link to="/Home">Assignments</Link>
+              <Link to="/courses/Assignments">Assignments</Link>
             </li>
             <li className="rounded">
               <Link to="/Home">Discussions</Link>
@@ -26,7 +26,7 @@ class CourseSideBar extends Component {
               <Link to="/courses/people">People</Link>
             </li>
             <li className="rounded">
-              <Link to="/Home">Files</Link>
+              <Link to="/courses/Files">Files</Link>
             </li>
           </ul>
         </div>
