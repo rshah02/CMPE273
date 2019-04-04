@@ -13,6 +13,7 @@ const Users = require("./routes/Users");
 
 const profile = require("./routes/profile");
 const Courses = require("./routes/courses");
+var enrollment = require("./routes/enrollment");
 //passport Middleware
 require("./middlewares/passport")(passport);
 
@@ -35,6 +36,7 @@ app.use('/users/courses/grades', grades) */
 app.use("/users", Users);
 app.use("/users/profile", profile);
 app.use("/users/courses", Courses);
+app.use("/enrollment", enrollment);
 app.listen(port, () => {
   console.log("Server is running on port: " + port);
 });

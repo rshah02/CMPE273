@@ -3,20 +3,22 @@ const User = require("../models/User");
 const Schema = mongoose.Schema;
 const CourseSchema = new Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  courseName: { type: String },
-  courseDept: { type: String },
-  courseTerm: { type: String },
+  courseName: { type: String, required: true },
+  courseDept: { type: String, required: true },
+  courseTerm: { type: String, required: true },
   courseDescription: { type: String },
   courseRoom: { type: String },
   courseCapacity: { type: Number },
-  waitlistCapacity: { type: Number },
+  waitlistCapacity: { type: Number, required: true },
   lectureTime: { type: String },
-
-  permissionNumber: [{ type: Number }],
+  users: [{ user: { type: Schema.Types.ObjectId, ref: "users" } }],
+  permissionNumber: { type: [Number] },
   assignments: [
     {
+      assignmentId: mongoose.Types.ObjectId,
       assignmentName: { type: String },
       assignmentDetail: { type: String },
+      file: { type: String },
       assignmentType: { type: String },
       points: { type: Number },
       dueDate: { type: Date }
@@ -41,6 +43,7 @@ const CourseSchema = new Schema({
   ],
   Announcements: [
     {
+      user: { type: Schema.Types.ObjectId, ref: "users" },
       annuoncementTitle: { Type: String },
       announcementDetails: { Type: String },
       announcementDate: { Type: Date }

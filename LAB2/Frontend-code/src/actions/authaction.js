@@ -83,11 +83,12 @@ export const updateProfile = (request, history) => dispatch => {
       languages: request.languages
     })
     .then(res => {
-      const { token } = res.data;
+      /* const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       setAuthToken(token);
-      const decoded = jwt_decode(token);
-      dispatch(setCurrentUser(decoded));
+      const decoded = jwt_decode(token); 
+      dispatch(setCurrentUser(decoded)); */
+      dispatch(setCurrentUser(res.data));
     })
 
     .catch(err =>

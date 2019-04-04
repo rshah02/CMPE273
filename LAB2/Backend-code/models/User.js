@@ -42,7 +42,8 @@ const UserSchema = new Schema({
     type: String
   },
   type: {
-    type: String
+    type: String,
+    required: true
   },
   homeTown: {
     type: String

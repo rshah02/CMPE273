@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const mysql = require("mysql");
 var con = require("../database/db");
 const Course = require("../models/Course");
-
+const User = require("../models/User");
 route.get("/", function(req, res) {
   console.log(req.body.data);
   Course.find()
