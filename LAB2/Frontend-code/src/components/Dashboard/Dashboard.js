@@ -36,6 +36,7 @@ class Dashboard extends Component {
 
   render() {
     let courses = [];
+
     Object.assign(courses, this.state.courses);
     const isStudent = false;
     return (

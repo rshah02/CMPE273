@@ -21,11 +21,13 @@ const CourseSchema = new Schema({
       file: { type: String },
       assignmentType: { type: String },
       points: { type: Number },
-      dueDate: { type: Date }
+      dueDate: { type: Date },
+      createDate: { type: Date }
     }
   ],
   Quiz: [
     {
+      assignmentId: { type: Schema.Types.ObjectId, ref: "assignments" },
       quizName: { type: String },
       question: [
         {

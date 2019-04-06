@@ -44,11 +44,11 @@ route.post("/", (req, res) => {
   });
 });
 
-route.get("/assignments", function(req, res) {
-  console.log(req.query.courseId);
-  Course.findById(req.query.courseId)
+route.get("/:id/assignments", function(req, res) {
+  console.log("params:" + req.params.id);
+  Course.findById(req.params.id)
     .then(course => {
-      console.log(course.assignments);
+      console.log("assignments:" + course.assignments);
       res.status(200).json(course.assignments);
     })
     .catch(err => {
@@ -56,6 +56,7 @@ route.get("/assignments", function(req, res) {
     });
 });
 
+//create a new assignment
 route.post("/assignments", function(req, res) {
   Course.findById(req.body.courseId).then(course => {
     //define a map flag to check if assignment already exists
@@ -72,7 +73,39 @@ route.post("/assignments", function(req, res) {
         file: req.body.file,
         assignmentType: req.body.assignmentType,
         points: req.body.points,
-        dueDate: req.body.dueDate
+        dueDate: req.body.dueDate,
+        createDate: Date.now()
+      };
+      course.assignments.unshift(newAssignment);
+      course
+        .save()
+        .then(course => res.json({ success: course }))
+        .catch(err => res.json({ message: err }));
+    }
+  });
+});
+
+//create a new quiz
+route.post("/quiz", function(req, res) {
+  Course.findById(req.body.courseId).then(course => {
+    //define a map flag to check if assignment already exists
+    match = course.assignments
+      .map(assignment => assignment.assignmentName)
+      .indexOf(req.body.assignmentName);
+    if (match === 0) {
+      res.json("Quiz  exists");
+    } else {
+      //add user at the top of the array
+      if (req.body.assignmentType === "quiz") {
+      }
+      const newAssignment = {
+        assignmentName: req.body.assignmentName,
+        assignmentDetail: req.body.assignmentDetail,
+        file: req.body.file,
+        assignmentType: req.body.assignmentType,
+        points: req.body.points,
+        dueDate: req.body.dueDate,
+        createDate: Date.now()
       };
       course.assignments.unshift(newAssignment);
       course

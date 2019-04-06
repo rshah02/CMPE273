@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./newCourse.css";
 import axios from "axios";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 class newCourse extends Component {
   constructor() {
     super();
@@ -18,6 +20,10 @@ class newCourse extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(value) {
+    this.setState({ courseDescription: value });
   }
   onChange(e) {
     this.setState({
@@ -158,13 +164,9 @@ class newCourse extends Component {
         </div>
         <div className="col-lg-12 form-group blue-border">
           <label lablefor="courseDescription">Enter Course Description </label>
-          <textarea
-            name="courseDescription"
-            rows="3"
-            cols="50"
-            className="form-control"
+          <ReactQuill
             value={this.state.courseDescription}
-            onChange={this.onChange}
+            onChange={this.handleChange}
           />
         </div>
         <button className="btn btn-primary" type="submit" value="submit">

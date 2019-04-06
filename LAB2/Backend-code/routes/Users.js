@@ -25,7 +25,8 @@ router.post("/login", (req, res) => {
           id: user.id,
           name: user.name,
           avatar: user.avatar,
-          email: user.email
+          email: user.email,
+          type: user.type
         };
 
         //sign Token
@@ -102,4 +103,3 @@ router.get(
   }
 );
 module.exports = router;
-

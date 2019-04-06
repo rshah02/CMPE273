@@ -21,7 +21,7 @@ export class Coursecard extends Component {
     ];
     return (
       <div>
-        <Link to={`/course/${this.props.id}/home`} className="cardlink">
+        <Link to={`/courses/${this.props.id}/home`} className="cardlink">
           <Card className="cards searchcards">
             <img
               src={colorTemp[Number(this.props.num) % 3]}

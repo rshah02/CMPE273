@@ -9,7 +9,8 @@ import Profile from "./components/Profile/Profile";
 import Courses from "./components/Courses/Courses";
 import CourseInfo from "./components/CourseInfo/CourseInfo";
 import Dashboard from "./components/Dashboard/Dashboard";
-
+import Assignments from "./components/Assignments/Assignments";
+import Announcements from "./components/Announcements/Announcements";
 class App extends Component {
   render() {
     return (
@@ -23,7 +24,7 @@ class App extends Component {
               <Route path="/Dashboard" component={Dashboard} />
               <Route exact path="/profile" component={Profile} />
               <Route path="/courses" component={Courses} />
-              <Route path="/courses/:id/home" component={Courses} />
+              />
             </Switch>
           </div>
         </Router>

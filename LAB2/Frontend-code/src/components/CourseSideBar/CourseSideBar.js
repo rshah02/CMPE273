@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "./CourseSidebar.css";
 class CourseSideBar extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    console.log("sidebarprops:" + this.props.id);
     return (
       <div className="courseSideBar">
         <div className="coursesidebarInner">
@@ -14,7 +19,9 @@ class CourseSideBar extends Component {
               <Link to="/courses/Announcements">Announcements</Link>
             </li>
             <li className="rounded">
-              <Link to="/courses/Assignments">Assignments</Link>
+              <Link to={`/courses/${this.props.id}/Assignments`}>
+                Assignments
+              </Link>
             </li>
             <li className="rounded">
               <Link to="/Home">Discussions</Link>

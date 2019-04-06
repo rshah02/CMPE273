@@ -12,8 +12,8 @@ import Assignments from "../Assignments/Assignments";
 import Announcements from "../Assignments/Assignments";
 import Files from "../Files/Files";
 class courses extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       userId: "",
       books: []
@@ -43,6 +43,7 @@ class courses extends Component {
         </tr>
       );
     });
+    console.log(this.props.match.params.id);
     return (
       <div className="row">
         <div className="col-lg-1">
@@ -52,18 +53,23 @@ class courses extends Component {
           <Header />
           <div className="row">
             <div className="col-lg-3">
-              <CourseSideBar />
+              <CourseSideBar id={"5ca35b542b24eb37143aa250"} />
             </div>
             <div className="col-lg-9">
               <div className="col-lg-12 courseContents">
                 <Switch>
                   <Route path="/courses/home" component={Home} />
                   <Route path="/courses/people" component={People} />
+                  {/*  <Route path="/courses/Announcements" component={Announcements} /> */}
                   <Route
-                    path="/courses/Announcements"
+                    path="/course/:id/Announcements"
                     component={Announcements}
                   />
-                  <Route path="/courses/Assignments" component={Assignments} />
+                  <Route
+                    path="/courses/:id/Assignments"
+                    component={Assignments}
+                  />
+
                   <Route path="/courses/Files" component={Files} />
                 </Switch>
               </div>

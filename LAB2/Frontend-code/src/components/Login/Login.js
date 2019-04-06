@@ -4,6 +4,7 @@ import { login } from "../../actions/authaction";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import "./Login.css";
 class Login extends Component {
   constructor() {
     super();
@@ -57,7 +58,7 @@ class Login extends Component {
                     <img
                       src="https://ok2static.oktacdn.com/bc/image/fileStoreRecord?id=fs0kbuxex4ds7v2rN0x7"
                       alt="SJSU Application Portal"
-                      class="logo sanjosestateuniversity_sjsuapplicationportal_1"
+                      className="logo sanjosestateuniversity_sjsuapplicationportal_1"
                     />
                   </div>
                 </div>
@@ -98,8 +99,9 @@ class Login extends Component {
                 >
                   Sign In
                 </button>
-
-                <Link to="/signup">New user? signup here</Link>
+                <div className="signupLink">
+                  <Link to="/signup">New user? signup here</Link>
+                </div>
               </form>
             </div>
             <div className="col-lg-4" />

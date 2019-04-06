@@ -3,8 +3,7 @@ import Navbar from "../Navbar/Navbar";
 import Header from "../Header/Header";
 
 import axios from "axios";
-
-import "./Courseinfo.css";
+import "./courseInfo.css";
 
 export class CourseInfo extends Component {
   constructor(props) {
@@ -80,12 +79,14 @@ export class CourseInfo extends Component {
             <div className="col-3 menucolumn">
               {isStudent ? (
                 this.state.status === "enroll" ? (
-                  <Menu cid={this.state.cid} />
+                  //<Menu cid={this.state.cid} />
+                  <span />
                 ) : (
                   <span />
                 )
               ) : (
-                <Menu cid={this.state.cid} />
+                // <Menu cid={this.state.cid} />
+                <span />
               )}
             </div>
             <div className="col-9 coursecolumn">
