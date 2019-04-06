@@ -1,8 +1,6 @@
 const express = require("express");
 const route = express.Router();
 const mongoose = require("mongoose");
-const mysql = require("mysql");
-var con = require("../database/db");
 const Course = require("../models/Course");
 const User = require("../models/User");
 route.get("/", function(req, res) {
@@ -47,39 +45,40 @@ route.post("/", (req, res) => {
 });
 
 route.get("/assignments", function(req, res) {
-  const sql =
-    "SELECT * FROM assignment WHERE courseId=" +
-    mysql.escape(req.body.courseId) +
-    " AND assignmentType='assignment'";
-  con.query(sql, (err, result) => {
-    if (result) {
-      res.status(200).json(result);
-    } else {
-      res.status(400).json({ message: err });
-    }
-  });
+  console.log(req.query.courseId);
+  Course.findById(req.query.courseId)
+    .then(course => {
+      console.log(course.assignments);
+      res.status(200).json(course.assignments);
+    })
+    .catch(err => {
+      res.status(500).json({ message: err });
+    });
 });
 
 route.post("/assignments", function(req, res) {
-  const sql =
-    "INSERT INTO assignment (assignmentTitle,assignmentDetail,courseId,assignmentType,points,dueDate) VALUES (" +
-    mysql.escape(req.body.assignmentTitle) +
-    "," +
-    mysql.escape(req.body.assignmentDetail) +
-    "," +
-    mysql.escape(req.body.courseId) +
-    "," +
-    mysql.escape(req.body.assignmentType) +
-    "," +
-    mysql.escape(req.body.points) +
-    "," +
-    mysql.escape(req.body.dueDate) +
-    ")";
-  con.query(sql, (err, result) => {
-    if (result) {
-      res.send({ status: "assignemnt added" });
+  Course.findById(req.body.courseId).then(course => {
+    //define a map flag to check if assignment already exists
+    match = course.assignments
+      .map(assignment => assignment.assignmentName)
+      .indexOf(req.body.assignmentName);
+    if (match === 0) {
+      res.json("Assignment  exists");
     } else {
-      res.status(400).send({ message: err.sqlMessage });
+      //add user at the top of the array
+      const newAssignment = {
+        assignmentName: req.body.assignmentName,
+        assignmentDetail: req.body.assignmentDetail,
+        file: req.body.file,
+        assignmentType: req.body.assignmentType,
+        points: req.body.points,
+        dueDate: req.body.dueDate
+      };
+      course.assignments.unshift(newAssignment);
+      course
+        .save()
+        .then(course => res.json({ success: course }))
+        .catch(err => res.json({ message: err }));
     }
   });
 });
