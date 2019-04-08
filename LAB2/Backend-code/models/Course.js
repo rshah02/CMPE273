@@ -33,6 +33,7 @@ const CourseSchema = new Schema({
       createDate: { type: Date }
     }
   ],
+  files: [{ type: String }],
   Quiz: [
     {
       assignmentId: { type: Schema.Types.ObjectId, ref: "assignments" },

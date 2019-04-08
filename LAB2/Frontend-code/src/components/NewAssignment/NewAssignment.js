@@ -44,7 +44,8 @@ class NewAssignment extends Component {
       points: this.state.points,
       dueDate: this.state.dueDate
     };
-    
+    console.log(this.props.cid);
+    console.log(this.props.id);
     console.log(this.props.match.params.id);
     axios
       .post(

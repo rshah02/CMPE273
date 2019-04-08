@@ -2,7 +2,19 @@ const express = require("express");
 const route = express.Router();
 const mongoose = require("mongoose");
 const Course = require("../models/Course");
-const User = require("../models/User");
+//file start
+const fileUpdload = require("express-fileupload");
+
+route.use(
+  fileUpdload({
+    limits: { fileSize: 50 * 1024 * 1024 },
+    useTempFiles: true,
+    tempFileDir: `${__dirname}/../public/temp`,
+    responseOnLimit: "File size limit has been reached"
+  })
+);
+
+//file end
 route.get("/", function(req, res) {
   console.log(req.body.data);
   Course.find()
@@ -35,6 +47,10 @@ route.post("/", (req, res) => {
       newCourse
         .save()
         .then(course => {
+          //  course.users.push(req.user)
+          //course.save()
+          //.then(course=>res.json({ message: "added course successfully" }))
+          //.catch(err=>console.log(err))
           console.log(course);
           res.json({ message: "added course successfully" });
         })
@@ -152,17 +168,54 @@ route.get("/:id/Announcements", function(req, res) {
     .catch(err => {
       res.status(500).json({ message: err });
     });
-
-  /*const sql =
-    "SELECT * FROM announcement WHERE courseId=" +
-    mysql.escape(req.body.courseId);
-  con.query(sql, (err, result) => {
-    if (result) {
-      res.status(200).json(result);
-    } else {
-      res.status(400).send({ message: err });
-    }
-  }); */
 });
 
+//file route
+route.post("/:id/file", (req, res, next) => {
+  console.log(req.files.lecturefile.name);
+  let uploadFile = req.files.lecturefile;
+  const fileName = req.files.lecturefile.name;
+  // const fileNameSplit = req.files.file.name.split(".");
+  //const ext = fileNameSplit[fileNameSplit.length - 1];
+  //const fileName = `${req.user.id}.${ext}`;
+  console.log("reqparams:" + req.params.id);
+  console.log(fileName);
+  console.log(uploadFile);
+  uploadFile.mv(`${__dirname}/../public/files/uploads/${fileName}`, function(
+    err
+  ) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    console.log("path:" + `${__dirname}/../public/files/${fileName}`);
+    /* res.json({
+      file: `public/${req.files.lecturefile.name}`
+    }); */
+  });
+  Course.findById(req.params.id)
+    .then(course => {
+      console.log("files" + course.files);
+      course.files.push(fileName);
+      course
+        .save()
+        .then(course => res.json({ success: course }))
+        .catch(err => res.json({ message: err }));
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+route.get("/:id/file", (req, res) => {
+  console.log("courseId:" + req.params.id);
+  Course.findById(req.params.id)
+    .then(course => {
+      console.log(course.files);
+      res.status(200).json(course.files);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
 module.exports = route;

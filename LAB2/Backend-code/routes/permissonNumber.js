@@ -1,35 +1,34 @@
-const express = require("express")
-const route = express.Router()
-const mysql = require('mysql')
-var con = require("../database/db")
+const express = require("express");
+const route = express.Router();
+const Course = require("../models/Course");
+route.post("/", (req, res) => {
+  console.log(req.body.courseId);
+  Course.findById(req.body.courseId)
+    .then(course => {
+      console.log(course);
+      waitlist = course.waitlistCapacity;
+      console.log(course.waitlistCapacity);
 
-route.get("/", (req, res) => {
-
-    const sql = "SELECT waitlistCapacity FROM course WHERE courseId=" + mysql.escape(req.body.courseId);
-    con.query(sql, (err, result) => {
-        if (result) {
-            console.log(result[0].waitlistCapacity);
-            const waitlist = result[0].waitlistCapacity;
-            for (i = 0; i < waitlist; i++) {
-                let r = Math.floor(Math.random() * 100) + 1;
-                const sql1 = "INSERT INTO permissonNumber(courseId,permissonNumber) VALUES ("
-                    + mysql.escape(req.body.courseId) + "," + mysql.escape(r) + ")";
-
-                con.query(sql1, (err, result1) => {
-                    if (result1) {
-
-
-                    } else {
-                        res.status(400).send(err)
-                    }
-                })
-
-            }
-
-        } else {
-            res.status(400).send({ message: err })
+      while (waitlist > 0) {
+        let r = Math.floor(Math.random() * 100) + 1;
+        if (course.permissionNumber.indexOf(r) == -1) {
+          course.permissionNumber.push(r);
+          waitlist--;
         }
+      }
+      course
+        .save()
+        .then(course => {
+          console.log(course);
+          res.status(200).json(course.permissionNumber);
+        })
+        .catch(err => {
+          res.status(400).json(err);
+        });
     })
-})
+    .catch(err => {
+      res.json(err);
+    });
+});
 
-module.exports = route
+module.exports = route;

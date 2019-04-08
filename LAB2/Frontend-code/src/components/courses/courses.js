@@ -79,7 +79,7 @@ class courses extends Component {
                     path="/courses/:id/Assignments/:cid"
                     component={submit}
                   />
-                  <Route path="/courses/Files" component={Files} />
+                  <Route path="/courses/:id/Files" component={Files} />
                 </Switch>
               </div>
             </div>
