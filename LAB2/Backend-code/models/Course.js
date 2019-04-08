@@ -9,10 +9,18 @@ const CourseSchema = new Schema({
   courseDescription: { type: String },
   courseRoom: { type: String },
   courseCapacity: { type: Number },
-  waitlistCapacity: { type: Number, required: true },
+  waitlistCapacity: { type: Number },
   lectureTime: { type: String },
   users: [{ user: { type: Schema.Types.ObjectId, ref: "users" } }],
   permissionNumber: { type: [Number] },
+  announcements: [
+    {
+      announcementId: mongoose.Types.ObjectId,
+      announcementTitle: { type: String },
+      announcementDetails: { type: String },
+      announcementDate: { type: Date }
+    }
+  ],
   assignments: [
     {
       assignmentId: mongoose.Types.ObjectId,
@@ -42,15 +50,14 @@ const CourseSchema = new Schema({
       points: { type: String },
       dueDate: { type: Date }
     }
-  ],
-  Announcements: [
-    {
-      user: { type: Schema.Types.ObjectId, ref: "users" },
-      annuoncementTitle: { Type: String },
-      announcementDetails: { Type: String },
-      announcementDate: { Type: Date }
-    }
   ]
 });
 
 module.exports = mongoose.model("Course", CourseSchema);
+/*Announcements: [
+  {
+    annuoncementTitle: { Type: String },
+    announcementDetails: { Type: String },
+    announcementDate: { Type: Date }
+  }
+] */

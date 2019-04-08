@@ -15,7 +15,7 @@ const mongoose = require("mongoose");
 */
 mongoose
   .connect(
-    "mongodb+srv://Admin:admin@canvas-eg2ol.mongodb.net/Canvas?retryWrites=true",
+    " mongodb+srv://Admin:admin@cluster0-eg2ol.mongodb.net/Canvas?retryWrites=true",
     { useNewUrlParser: true }
   )
   .then(() => console.log("Mongo connected"))

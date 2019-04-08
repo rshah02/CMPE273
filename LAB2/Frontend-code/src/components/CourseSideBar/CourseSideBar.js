@@ -13,10 +13,12 @@ class CourseSideBar extends Component {
         <div className="coursesidebarInner">
           <ul>
             <li className="rounded">
-              <Link to="/courses/home">Home</Link>
+              <Link to={`/courses/${this.props.id}/Home`}>Home</Link>
             </li>
             <li className="rounded">
-              <Link to="/courses/Announcements">Announcements</Link>
+              <Link to={`/courses/${this.props.id}/Announcements`}>
+                Announcements
+              </Link>
             </li>
             <li className="rounded">
               <Link to={`/courses/${this.props.id}/Assignments`}>
@@ -24,16 +26,18 @@ class CourseSideBar extends Component {
               </Link>
             </li>
             <li className="rounded">
-              <Link to="/Home">Discussions</Link>
+              <Link to={`/courses/${this.props.id}/Discussion`}>
+                Discussions
+              </Link>
             </li>
             <li className="rounded">
-              <Link to="/Home">Grades</Link>
+              <Link to={`/courses/${this.props.id}/Grades`}>Grades</Link>
             </li>
             <li className="rounded">
-              <Link to="/courses/people">People</Link>
+              <Link to={`/courses/${this.props.id}/People`}>People</Link>
             </li>
             <li className="rounded">
-              <Link to="/courses/Files">Files</Link>
+              <Link to={`/courses/${this.props.id}/Files`}>Files</Link>
             </li>
           </ul>
         </div>

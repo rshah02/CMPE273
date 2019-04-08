@@ -9,7 +9,9 @@ import Navbar from "../Navbar/Navbar";
 import Header from "../Header/Header";
 import People from "../People/People";
 import Assignments from "../Assignments/Assignments";
-import Announcements from "../Assignments/Assignments";
+import Announcements from "../Announcements/Announcements";
+import NewAssignment from "../NewAssignment/NewAssignment";
+import submit from "../submit/submit";
 import Files from "../Files/Files";
 class courses extends Component {
   constructor(props) {
@@ -43,33 +45,40 @@ class courses extends Component {
         </tr>
       );
     });
-    console.log(this.props.match.params.id);
+    console.log("in course:" + this.props.match.params.Id);
     return (
       <div className="row">
-        <div className="col-lg-1">
+        <div className="col-md-1">
           <Navbar />
         </div>
-        <div className="col-lg-11">
+        <div className="col-md-11">
           <Header />
           <div className="row">
-            <div className="col-lg-3">
-              <CourseSideBar id={"5ca35b542b24eb37143aa250"} />
+            <div className="col-md-2">
+              <CourseSideBar id={this.props.match.params.Id} />
             </div>
-            <div className="col-lg-9">
-              <div className="col-lg-12 courseContents">
+            <div className="col-md-10">
+              <div className="col-md-12 courseContents">
                 <Switch>
                   <Route path="/courses/home" component={Home} />
                   <Route path="/courses/people" component={People} />
                   {/*  <Route path="/courses/Announcements" component={Announcements} /> */}
                   <Route
-                    path="/course/:id/Announcements"
+                    path="/courses/:id/Announcements"
                     component={Announcements}
                   />
                   <Route
                     path="/courses/:id/Assignments"
                     component={Assignments}
                   />
-
+                  <Route
+                    path="/courses/:id/NewAssignment"
+                    component={NewAssignment}
+                  />
+                  <Route
+                    path="/courses/:id/Assignments/:cid"
+                    component={submit}
+                  />
                   <Route path="/courses/Files" component={Files} />
                 </Switch>
               </div>

@@ -19,9 +19,10 @@ export class Coursecard extends Component {
       "https://www.solidbackgrounds.com/images/2560x1440/2560x1440-sea-blue-solid-color-background.jpg",
       "https://cdn.shopify.com/s/files/1/1011/0376/products/PastelBlue.jpg?v=1512940787"
     ];
+    console.log("card courseId:" + this.props.id);
     return (
       <div>
-        <Link to={`/courses/${this.props.id}/home`} className="cardlink">
+        <Link to={`/courses/${this.props.id}`} className="cardlink">
           <Card className="cards searchcards">
             <img
               src={colorTemp[Number(this.props.num) % 3]}

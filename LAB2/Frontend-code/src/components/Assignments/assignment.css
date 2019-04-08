@@ -1,0 +1,26 @@
+.assignmentList {
+  border: 0.5px solid grey;
+  box-shadow: 0.7px;
+  margin: 10px auto;
+  background-color: white;
+}
+
+.assignmentWraper {
+  background-color: grey;
+  padding: 20px;
+}
+
+.assignmentList {
+  text-align: left;
+  padding: 10px;
+}
+
+.assignmentList h2 {
+  border-bottom: 1px solid;
+  padding: 10px;
+  text-align: left;
+}
+
+.abutton {
+  float: right;
+}

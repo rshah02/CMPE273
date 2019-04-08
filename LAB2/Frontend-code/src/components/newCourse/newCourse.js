@@ -56,7 +56,7 @@ class newCourse extends Component {
       <form onSubmit={this.onSubmit} className="col-lg-12">
         <div className="col-lg-6 form-group ">
           <div className="col-lg-3">
-            <lable lablefor="courseName">Course Name</lable>
+            <label labelfor="courseName">Course Name</label>
           </div>
           <div className="col-lg-9">
             <input
@@ -115,55 +115,54 @@ class newCourse extends Component {
           </div>
         </div>
 
-        <div className="col-lg-6 courseFormRightWrapper">
-          <div className="form-group">
-            <div className="col-lg-2">
-              <lable lablefor="courseCapacity">Batch Size</lable>
-            </div>
-            <div className="col-lg-10">
-              <input
-                type="text"
-                className="form-control"
-                name="courseCapacity"
-                value={this.state.courseCapacity}
-                onChange={this.onChange}
-                placeholder="ex. 70"
-              />
-            </div>
+        <div className="col-lg-6 form-group">
+          <div className="col-lg-3">
+            <lable lablefor="courseCapacity">Batch Size</lable>
           </div>
-          <div className="form-group">
-            <div className="col-lg-2">
-              <lable lablefor="waitlistCapacity">waitlist Capacity</lable>
-            </div>
-            <div className="col-lg-10">
-              <input
-                type="text"
-                name="waitlistCapacity"
-                className="form-control"
-                value={this.state.waitlistCapacity}
-                onChange={this.onChange}
-                placeholder="ex. 15"
-              />
-            </div>
-          </div>
-          <div className="form-group">
-            <div className="col-lg-2">
-              <lable lablefor="lectureTime">Lecture Timings</lable>
-            </div>
-            <div className="col-lg-10">
-              <input
-                type="text"
-                name="lectureTime"
-                className="form-control"
-                value={this.state.lectureTime}
-                onChange={this.onChange}
-                placeholder="ex. 15"
-              />
-            </div>
+          <div className="col-lg-9">
+            <input
+              type="text"
+              className="form-control"
+              name="courseCapacity"
+              value={this.state.courseCapacity}
+              onChange={this.onChange}
+              placeholder="ex. 70"
+            />
           </div>
         </div>
+        <div className="col-lg-6 form-group">
+          <div className="col-lg-2">
+            <label labelfor="waitlistCapacity">waitlist Capacity</label>
+          </div>
+          <div className="col-lg-10">
+            <input
+              type="text"
+              name="waitlistCapacity"
+              className="form-control"
+              value={this.state.waitlistCapacity}
+              onChange={this.onChange}
+              placeholder="ex. 15"
+            />
+          </div>
+        </div>
+        <div className="col-lg-6 form-group">
+          <div className="col-lg-2">
+            <label labelfor="lectureTime">Lecture Timings</label>
+          </div>
+          <div className="col-lg-10">
+            <input
+              type="text"
+              name="lectureTime"
+              className="form-control"
+              value={this.state.lectureTime}
+              onChange={this.onChange}
+              placeholder="ex. 15"
+            />
+          </div>
+        </div>
+
         <div className="col-lg-12 form-group blue-border">
-          <label lablefor="courseDescription">Enter Course Description </label>
+          <label labelfor="courseDescription">Enter Course Description </label>
           <ReactQuill
             value={this.state.courseDescription}
             onChange={this.handleChange}

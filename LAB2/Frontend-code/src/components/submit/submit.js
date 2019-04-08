@@ -4,8 +4,8 @@ import "../../App.css";
 import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 import AssignmentList from "../AssignmentList/AssignmentList";
-import "./assignment.css";
-class Assignments extends Component {
+
+class submit extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -64,4 +64,4 @@ class Assignments extends Component {
   }
 }
 
-export default withRouter(Assignments);
+export default withRouter(submit);

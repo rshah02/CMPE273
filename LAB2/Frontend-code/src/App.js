@@ -11,6 +11,7 @@ import CourseInfo from "./components/CourseInfo/CourseInfo";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Assignments from "./components/Assignments/Assignments";
 import Announcements from "./components/Announcements/Announcements";
+import newAnnouncement from "./components/NewAnnouncement/NewAnnouncement";
 class App extends Component {
   render() {
     return (
@@ -23,7 +24,15 @@ class App extends Component {
               <Route exact path="/signup" component={Signup} />
               <Route path="/Dashboard" component={Dashboard} />
               <Route exact path="/profile" component={Profile} />
-              <Route path="/courses" component={Courses} />
+              <Route path="/courses/:Id" component={Courses} />
+              <Route
+                path="/courses/:Id/Announcements"
+                component={Announcements}
+              />
+              <Route
+                path="/courses/:Id/newAnnouncement"
+                component={newAnnouncement}
+              />
               />
             </Switch>
           </div>

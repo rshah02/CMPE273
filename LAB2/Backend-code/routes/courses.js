@@ -56,11 +56,35 @@ route.get("/:id/assignments", function(req, res) {
     });
 });
 
+//announcements
+route.post("/:id/Announcements", function(req, res) {
+  Course.findById(req.params.id).then(course => {
+    const match = course.announcements.filter(
+      announcement =>
+        announcement.announcementTitle === req.body.announcementTitle
+    );
+
+    if (match.length !== 0) {
+      res.json({ message: "announcement exists" });
+    } else {
+      const newAnnouncement = {
+        announcementTitle: req.body.announcementTitle,
+        announcementDetails: req.body.announcementDetails,
+        announcementDate: Date.now()
+      };
+      course.announcements.push(newAnnouncement);
+      course
+        .save()
+        .then(course => res.json(course.announcements))
+        .catch(err => res.json({ message: err }));
+    }
+  });
+});
 //create a new assignment
-route.post("/assignments", function(req, res) {
-  Course.findById(req.body.courseId).then(course => {
+route.post("/:id/assignments", function(req, res) {
+  Course.findById(req.params.id).then(course => {
     //define a map flag to check if assignment already exists
-    match = course.assignments
+    const match = course.assignments
       .map(assignment => assignment.assignmentName)
       .indexOf(req.body.assignmentName);
     if (match === 0) {
@@ -115,4 +139,30 @@ route.post("/quiz", function(req, res) {
     }
   });
 });
+
+//Anouncements
+//get announcements
+route.get("/:id/Announcements", function(req, res) {
+  console.log("courseId:" + req.params.id);
+  Course.findById(req.params.id)
+    .then(course => {
+      console.log("announcements:" + course.announcements);
+      res.status(200).json(course.announcements);
+    })
+    .catch(err => {
+      res.status(500).json({ message: err });
+    });
+
+  /*const sql =
+    "SELECT * FROM announcement WHERE courseId=" +
+    mysql.escape(req.body.courseId);
+  con.query(sql, (err, result) => {
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.status(400).send({ message: err });
+    }
+  }); */
+});
+
 module.exports = route;

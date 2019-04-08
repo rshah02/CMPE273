@@ -13,10 +13,16 @@ export class AssignmentList extends Component {
   }
 
   render() {
+    console.log(this.props.cid);
+    console.log("assignment:" + this.props.assignmentId);
     return (
       <div className="col-lg-12">
-        <div id="list">
-          <Link to={`/courses/Announcements`} className="cardlink">
+        <div id="list" className="assignmentList">
+          <Link
+            to={`/courses/${this.props.cid}/Assignments/${
+              this.props.assignmentId
+            }`}
+          >
             <h2>{this.props.assignmentName}</h2>
           </Link>
 
