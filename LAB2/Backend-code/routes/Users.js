@@ -1,13 +1,45 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const mysql = require("mysql");
+//const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 var con = require("../database/db");
 const passport = require("passport");
-const gravatar = require("gravatar");
 const User = require("../models/User");
 const mongoose = require("mongoose");
+var kafka = require("../kafka/client");
+
+// //kafka login
+// router.post("/login", function(req, res) {
+//   console.log("Inside login POST");
+//   console.log("Request Body: ", req.body);
+
+//   //Kafka request
+
+//   kafka.make_request("login", req.body, function(err, result) {
+//     if (err) {
+//       console.log("Inside err login");
+//       res.status(400).json({ message: "error in login" });
+//     } else {
+//       console.log("Inside results Login");
+//       if (result) {
+//         // req.session.user = result;
+
+//         // Create token if the password matched and no error was thrown
+//         jwt.sign(result, "secret", { expiresIn: "1h" }, (err, token) => {
+//           res.json({
+//             success: true,
+//             token: "Bearer " + token
+//           });
+//           console.log("Bearer " + token);
+//         });
+//       } else {
+//         return res.status(400).json({ password: "incorrect password" });
+//       }
+//     }
+//   });
+//   //Query
+// });
 
 router.post("/login", (req, res) => {
   var email = req.body.email;
@@ -30,7 +62,7 @@ router.post("/login", (req, res) => {
         };
 
         //sign Token
-        jwt.sign(payload, "secret", { expiresIn: 3600 }, (err, token) => {
+        jwt.sign(payload, "secret", { expiresIn: "1h" }, (err, token) => {
           res.json({
             success: true,
             token: "Bearer " + token
@@ -45,7 +77,33 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-  User.findOne({ email: req.body.email }).then(user => {
+  kafka.make_request("signup", req.body, function(err, result) {
+    console.log("In results Signup");
+    console.log("Results: ", result);
+    if (result) {
+      console.log("User saved successfully.");
+      res.writeHead(200, {
+        "Content-type": "text/plain"
+      });
+      res.end("Adding a user successful!");
+    } else if (result == null) {
+      console.log("User already exists.");
+      res.writeHead(210, {
+        "Content-type": "text/plain"
+      });
+      res.end("Dupplicate user!");
+    }
+
+    if (err) {
+      console.log("Unable to fetch user details. Error in Signup.", err);
+      res.writeHead(400, {
+        "Content-type": "text/plain"
+      });
+      res.end("Error in fetching user details!");
+    }
+  });
+
+  /* User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       return res.status(400).json({ email: "email already exists" });
     } else {
@@ -73,7 +131,7 @@ router.post("/signup", (req, res) => {
           .catch(err => console.log(err));
       });
     }
-  });
+  }); */
 });
 
 router.get(

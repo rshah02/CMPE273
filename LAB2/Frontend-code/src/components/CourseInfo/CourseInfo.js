@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Navbar from "../Navbar/Navbar";
-import Header from "../Header/Header";
 
 import axios from "axios";
 import "./courseInfo.css";
@@ -18,6 +16,7 @@ export class CourseInfo extends Component {
     this.waitlistHandler = this.waitlistHandler.bind(this);
     this.dropHandler = this.dropHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
+    this.enroll = this.enroll.bind(this);
   }
 
   enrollHandler() {
@@ -49,7 +48,19 @@ export class CourseInfo extends Component {
         }
       });
   };
-
+  enroll = e => {
+    const data = { courseId: this.state.cid };
+    e.preventDefault();
+    axios
+      .post(`http://localhost:3001/enrollment`, data)
+      .then(res => {
+        console.log(res);
+        alert("successfully enrolled");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   componentDidMount() {
     axios
       .get(`http://localhost:3001/course/${this.state.cid}/home`)
@@ -72,8 +83,6 @@ export class CourseInfo extends Component {
     const isStudent = true;
     return (
       <div>
-        <Navbar />
-        <Header title={this.state.cid} />
         <div className="pageContent">
           <div className="row">
             <div className="col-3 menucolumn">
@@ -175,6 +184,12 @@ export class CourseInfo extends Component {
             </div>
           </div>
         </div>
+
+        <form onSubmit={this.enroll}>
+          <button className="btn btn-primary" name="submit" value="submit">
+            enroll
+          </button>{" "}
+        </form>
       </div>
     );
   }

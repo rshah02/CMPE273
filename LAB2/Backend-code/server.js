@@ -3,6 +3,7 @@ var cors = require("cors");
 var bodyParser = require("body-parser");
 var app = express();
 const passport = require("passport");
+var kafka = require("./kafka/client");
 //var methodOverride = require("express-method-override");
 var port = process.env.PORT || 3001;
 //app.use(methodOverride("_method"));

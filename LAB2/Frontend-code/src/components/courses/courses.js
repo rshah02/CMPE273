@@ -13,6 +13,8 @@ import Announcements from "../Announcements/Announcements";
 import NewAssignment from "../NewAssignment/NewAssignment";
 import submit from "../submit/submit";
 import Files from "../Files/Files";
+import CourseInfo from "../CourseInfo/CourseInfo";
+
 class courses extends Component {
   constructor(props) {
     super(props);
@@ -35,16 +37,6 @@ class courses extends Component {
 
   render() {
     //iterate over books to create a table row
-    let details = this.state.books.map(book => {
-      return (
-        <tr>
-          <td>{book.courseDept}</td>
-          <td>{book.courseId}</td>
-          <td>{book.courseName}</td>
-          <td>{book.courseDescription}</td>
-        </tr>
-      );
-    });
     console.log("in course:" + this.props.match.params.Id);
     return (
       <div className="row">
@@ -80,6 +72,8 @@ class courses extends Component {
                     component={submit}
                   />
                   <Route path="/courses/:id/Files" component={Files} />
+                  <Route path="/courses/:id/Home" component={CourseInfo} />
+                  <Route path="/courses/:id/People" component={People} />
                 </Switch>
               </div>
             </div>

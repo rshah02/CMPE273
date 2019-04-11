@@ -6,6 +6,8 @@ import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Header from "../Header/Header";
+import createAbsoluteGrid from "react-absolute-grid";
+
 import newCourse from "../newCourse/newCourse";
 class Dashboard extends Component {
   constructor(props) {
@@ -36,8 +38,19 @@ class Dashboard extends Component {
 
   render() {
     let courses = [];
-
     Object.assign(courses, this.state.courses);
+
+    const AbsoluteGrid = createAbsoluteGrid(<Coursecard />);
+
+    console.log(
+      courses.map((course, index) => ({
+        id: course._id,
+        dept: course.courseDept,
+        name: course.courseName,
+        term: course.courseTerm
+      }))
+    );
+
     const isStudent = false;
     return (
       <div>
@@ -57,6 +70,15 @@ class Dashboard extends Component {
           </div>
           <hr />
           <div className="row mycourses">
+            <AbsoluteGrid
+              items={courses.map((course, index) => ({
+                id: course._id,
+                dept: course.courseDept,
+                name: course.courseName,
+                term: course.courseTerm
+              }))}
+              dragEnabled={true}
+            />
             {courses.map((course, index) => {
               return (
                 <Coursecard

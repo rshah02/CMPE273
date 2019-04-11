@@ -7,9 +7,7 @@ import Signup from "./components/Signup/SignUp";
 import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
 import Courses from "./components/Courses/Courses";
-import CourseInfo from "./components/CourseInfo/CourseInfo";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Assignments from "./components/Assignments/Assignments";
 import Announcements from "./components/Announcements/Announcements";
 import newAnnouncement from "./components/NewAnnouncement/NewAnnouncement";
 class App extends Component {

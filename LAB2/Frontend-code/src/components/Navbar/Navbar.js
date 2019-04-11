@@ -21,6 +21,7 @@ class Navbar extends Component {
                 <img
                   src="//www.gravatar.com/avatar/bc5a9a84383c25328d70edc83fc54ac7?s=100&r=pg&d=mm"
                   className="rounded-circle"
+                  alt="profile photo"
                 />
               </div>
             </div>

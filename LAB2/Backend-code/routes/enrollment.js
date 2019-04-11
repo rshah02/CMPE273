@@ -6,8 +6,39 @@ var con = require("../database/db");
 const Course = require("../models/Course");
 const User = require("../models/User");
 const passport = require("passport");
-route.get("/", (req, res) => {
-  const sql =
+route.get("/:id", (req, res) => {
+  console.log("get users");
+  console.log("params" + req.params.id);
+  console.log("courseId:" + req.query.courseId);
+  Course.findById(req.params.id)
+    .then(course => {
+      console.log("in requets");
+      const enroll = [];
+      console.log(course.users.length);
+      if (course.users.length === 0) {
+        res.json({ message: "there is no enrollment" });
+      } else {
+        course.users.map(user => {
+          console.log(user);
+          User.findById(user._id)
+            .then(user => {
+              console.log("user:" + user);
+              enroll.push(user);
+              console.log("enroll:" + enroll);
+              res.json(enroll);
+            })
+            .catch(err => {
+              console.log("no user" + err);
+            });
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.json(err);
+    });
+
+  /*const sql =
     "SELECT * from enrollment e,users u WHERE e.courseId=" +
     mysql.escape(req.body.courseId) +
     " AND e.userId=u.userId";
@@ -18,9 +49,9 @@ route.get("/", (req, res) => {
     } else {
       res.status(200).json(result);
     }
-  });
+  }); */
 });
-
+//add enrollment
 route.post(
   "/",
   passport.authenticate("jwt", { session: false }),
@@ -33,7 +64,7 @@ route.post(
         res.json("user exists");
       } else {
         //add user at the top of the array
-        course.users.unshift(user);
+        course.users.unshift(req.user);
         course
           .save()
           .then(course => res.json({ success: course }))
@@ -42,7 +73,7 @@ route.post(
     });
   }
 );
-
+// remove enrollment
 route.delete(
   "/",
   passport.authenticate("jwt", { session: false }),

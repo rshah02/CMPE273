@@ -4,7 +4,7 @@ import { getProfile } from "../../actions/profileAction";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./Profile.css";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Navbar from "./../../components/Navbar/Navbar";
 import axios from "axios";
 import "../../App.css";
@@ -125,6 +125,7 @@ class Profile extends Component {
                     className="rounded-circle"
                     src={this.state.userData.avatar}
                     onChange={this.onChange}
+                    alt="profile image"
                   />
                 </div>
                 <div className="form-group form-inline">

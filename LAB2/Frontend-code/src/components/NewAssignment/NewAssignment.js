@@ -3,7 +3,7 @@ import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./NewAssignment.css";
-import Assignments from "../Assignments/Assignments";
+
 class NewAssignment extends Component {
   constructor(props) {
     super(props);

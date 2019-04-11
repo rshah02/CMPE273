@@ -16,7 +16,7 @@ const mongoose = require("mongoose");
 mongoose
   .connect(
     " mongodb+srv://Admin:admin@cluster0-eg2ol.mongodb.net/Canvas?retryWrites=true",
-    { useNewUrlParser: true }
+    { useNewUrlParser: true, poolSize: 100 }
   )
   .then(() => console.log("Mongo connected"))
   .catch(err => console.log(err));

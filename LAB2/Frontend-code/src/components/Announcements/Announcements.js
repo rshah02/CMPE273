@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import { Switch, Route } from "react-router-dom";
 import { Link, withRouter } from "react-router-dom";
 import NewAnnouncement from "../NewAnnouncement/NewAnnouncement";
 import "./Announcement.css";
