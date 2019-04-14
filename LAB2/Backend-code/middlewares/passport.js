@@ -13,7 +13,7 @@ module.exports = passport => {
       console.log(jwt_payload);
       console.log(jwt_payload._id);
       console.log("payload:" + jwt_payload.id);
-      User.findById(jwt_payload._id)
+      User.findById(jwt_payload.id)
         .then(user => {
           if (user) {
             console.log(user);
@@ -22,7 +22,7 @@ module.exports = passport => {
           return done(null, false);
         })
         .catch(err => {
-          console.log(err);
+          console.log("err" + err);
         });
     })
   );

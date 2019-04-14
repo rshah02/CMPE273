@@ -13,6 +13,7 @@
     "bcrypt-nodejs": "0.0.3",
     "formidable": "^1.1.1",
     "glob": "^7.1.2",
+    "gravatar": "^1.8.0",
     "images-upload-middleware": "^1.1.1",
     "kafka-node": "^2.5.0",
     "mongodb": "^2.2.31",

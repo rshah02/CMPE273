@@ -19,15 +19,15 @@ class Navbar extends Component {
             <div className="profileImgWrapper">
               <div className="profileImg">
                 <img
-                  src="//www.gravatar.com/avatar/bc5a9a84383c25328d70edc83fc54ac7?s=100&r=pg&d=mm"
+                  src="https://sjsu.instructure.com/images/thumbnails/52746627/2UmxWxdoeiQm1sLPurRmS4L2qqtF4yYhxpYt20sB"
+                  alt="Rohankumar Shah"
                   className="rounded-circle"
-                  alt="profile photo"
                 />
               </div>
             </div>
             <div className="LogoutButtonWrapper">
               <Link to="/" onClick={this.logOut.bind(this)}>
-                <button className="btn">logout</button>
+                <button className="btn btn-primary log">logout</button>
               </Link>
             </div>
           </div>
@@ -74,7 +74,7 @@ class Navbar extends Component {
               </li>
               <br />
               <li>
-                <Link to="/courses">
+                <Link to="/AllCourses">
                   <i className="fa fa-book fa-3x" />
                   <br />
                   <span className="navbartext">Courses</span>

@@ -8,8 +8,6 @@ function handle_request(msg, callback) {
 
   const email = msg.email;
 
-  console.log(req.body.email);
-  console.log(req.body.city);
   User.findOneAndUpdate({ email: email }, msg, { new: true })
     .then(result => {
       console.log(result);

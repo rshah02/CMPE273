@@ -4,7 +4,7 @@ import { getProfile } from "../../actions/profileAction";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./Profile.css";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Navbar from "./../../components/Navbar/Navbar";
 import axios from "axios";
 import "../../App.css";
@@ -35,7 +35,7 @@ class Profile extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-
+    let Token = localStorage.jwtToken;
     const user = {
       name: this.state.name,
       email: this.state.email,
@@ -50,23 +50,27 @@ class Profile extends Component {
       homeTown: this.state.homeTown,
       about: this.state.about
     };
-    axios.post("http://localhost:3001/users/profile", user).then(response => {
-      console.log(response.data);
-      this.setState({
-        userData: response.data,
-        name: response.data.name,
-        email: response.data.email,
-        phone: response.data.phone,
-        city: response.data.city,
-        country: response.data.country,
-        homeTown: response.data.homeTown,
-        school: response.data.school,
-        company: response.data.company,
-        languages: response.data.languages,
-        gender: response.data.gender,
-        about: response.data.about
+    axios
+      .post("http://localhost:3001/users/profile", user, {
+        headers: { Authorization: Token }
+      })
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          userData: response.data,
+          name: response.data.name,
+          email: response.data.email,
+          phone: response.data.phone,
+          city: response.data.city,
+          country: response.data.country,
+          homeTown: response.data.homeTown,
+          school: response.data.school,
+          company: response.data.company,
+          languages: response.data.languages,
+          gender: response.data.gender,
+          about: response.data.about
+        });
       });
-    });
 
     //this.props.updateProfile(user);
     /* profile(user).then(res => {
@@ -74,14 +78,16 @@ class Profile extends Component {
     });*/
   }
 
-  componentDidMount() {
+  componentWillMount() {
     //this.props.getProfile();
-    let token = localStorage.jwtToken;
-    const decoded = jwt_decode(token);
+    let Token = localStorage.jwtToken;
+    const decoded = jwt_decode(Token);
+    console.log("server token:" + Token);
     console.log(decoded);
     axios
       .get("http://localhost:3001/users/profile", {
-        params: { email: decoded.email }
+        params: { email: decoded.email },
+        headers: { Authorization: Token }
       })
       .then(response => {
         console.log(response.data);
@@ -121,12 +127,16 @@ class Profile extends Component {
 
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
-                  <img
-                    className="rounded-circle"
-                    src={this.state.userData.avatar}
-                    onChange={this.onChange}
-                    alt="profile image"
-                  />
+                  <div className="col-lg-3" />
+                  <div className="col-lg=9">
+                    <input type="file" />
+                    <img
+                      src="https://sjsu.instructure.com/images/thumbnails/52746627/2UmxWxdoeiQm1sLPurRmS4L2qqtF4yYhxpYt20sB"
+                      alt="Rohankumar Shah"
+                      onChange={this.onChange}
+                      className="rounded-circle center"
+                    />
+                  </div>
                 </div>
                 <div className="form-group form-inline">
                   <div className="col-lg-3">
@@ -291,11 +301,11 @@ class Profile extends Component {
                   <button
                     type="submit"
                     value="Submit"
-                    className="btn btn-primary"
+                    className="btn btn-primary log"
                   >
                     Update
                   </button>{" "}
-                  <button className="btn btn-danger">Cancel</button>
+                  <button className="btn btn-danger log">Cancel</button>
                 </div>
               </form>
             </div>

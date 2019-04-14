@@ -39,7 +39,7 @@ export class CourseInfo extends Component {
     e.preventDefault();
     const data = { action: this.state.action };
     axios
-      .post(`http://localhost:3001/course/${this.state.cid}/home`, data)
+      .post(`http://localhost:3001/users/course/${this.state.cid}/home`, data)
       .then(response => {
         if (response.data.message === "success") {
           alert("Action completed.");
@@ -63,15 +63,15 @@ export class CourseInfo extends Component {
   };
   componentDidMount() {
     axios
-      .get(`http://localhost:3001/course/${this.state.cid}/home`)
+      .get(`http://localhost:3001/users/courses/${this.state.cid}`)
       .then(response => {
-        if (response.data.message === "error") {
+        if (response.data.message === "course not found") {
           alert("Something went wrong!");
           this.prop.history.push("/course");
-        } else if (response.data.message === "success") {
+        } else {
           this.setState({
-            details: response.data.data,
-            status: response.data.status
+            details: response.data
+            //status: response.data.status
           });
         }
       });
@@ -99,33 +99,33 @@ export class CourseInfo extends Component {
               )}
             </div>
             <div className="col-9 coursecolumn">
-              <h3>{this.state.details.cname}</h3>
+              <h3>{this.state.details.courseName}</h3>
               <br />
               <table className="courseinfo">
                 <tbody>
                   <tr>
                     <td>Department</td>
-                    <td>: {this.state.details.cdept}</td>
+                    <td>: {this.state.details.courseDept}</td>
                   </tr>
                   <tr>
                     <td className="coursedesc">Description</td>
-                    <td>: {this.state.details.cdesc}</td>
+                    <td>: {this.state.details.courseDescription}</td>
                   </tr>
                   <tr>
                     <td>Classroom</td>
-                    <td>: {this.state.details.croom}</td>
+                    <td>: {this.state.details.courseRoom}</td>
                   </tr>
                   <tr>
                     <td>Capacity</td>
-                    <td>: {this.state.details.ccap}</td>
+                    <td>: {this.state.details.courseCapacity}</td>
                   </tr>
                   <tr>
                     <td>Waitlist</td>
-                    <td>: {this.state.details.cwait}</td>
+                    <td>: {this.state.details.waitlistCapacity}</td>
                   </tr>
                   <tr>
                     <td>Term</td>
-                    <td>: {this.state.details.cterm}</td>
+                    <td>: {this.state.details.courseTerm}</td>
                   </tr>
                   {isStudent ? (
                     this.state.status === "waitlist" ? (
@@ -165,19 +165,7 @@ export class CourseInfo extends Component {
                       &nbsp;
                     </form>
                   </span>
-                ) : (
-                  <span>
-                    <form onSubmit={this.submitHandler}>
-                      <input
-                        type="submit"
-                        name="drop"
-                        value="Drop"
-                        className="btn btn-primary"
-                        onClick={this.dropHandler}
-                      />
-                    </form>
-                  </span>
-                )
+                ) : null
               ) : (
                 <span />
               )}
@@ -186,7 +174,11 @@ export class CourseInfo extends Component {
         </div>
 
         <form onSubmit={this.enroll}>
-          <button className="btn btn-primary" name="submit" value="submit">
+          <button
+            className="btn btn-primary as-btn"
+            name="submit"
+            value="submit"
+          >
             enroll
           </button>{" "}
         </form>

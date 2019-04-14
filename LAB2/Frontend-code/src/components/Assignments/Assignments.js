@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
 import "../../App.css";
 import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
@@ -15,8 +14,12 @@ class Assignments extends Component {
     };
   }
   componentWillMount() {
+    const Token = localStorage.getItem("jwtToken");
     axios
-      .get(`http://localhost:3001/users/courses/${this.state.cid}/assignments`)
+      .get(
+        `http://localhost:3001/users/courses/${this.state.cid}/assignments`,
+        { headers: { Authorization: Token } }
+      )
       .then(response => {
         console.log("assignmentresponse:" + response.data);
         if (response) {
@@ -40,7 +43,9 @@ class Assignments extends Component {
         <div className="col-md-4 abutton">
           {isFaculty ? (
             <Link to={`/courses/${this.state.cid}/NewAssignment`}>
-              <button className="btn btn-primary">Create Assignment</button>{" "}
+              <button className="btn btn-primary as-btn">
+                Create Assignment
+              </button>{" "}
             </Link>
           ) : null}
         </div>

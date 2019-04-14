@@ -10,12 +10,27 @@ var port = process.env.PORT || 3001;
 app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(function(req, res, next) {
+  // res.setHeader('Access-Control-Allow-Origin', 'http://ec2-18-223-153-77.us-east-2.compute.amazonaws.com:3000');
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+  );
+  res.setHeader("Cache-Control", "no-cache");
+  next();
+});
 const Users = require("./routes/Users");
 
 const profile = require("./routes/profile");
 const Courses = require("./routes/courses");
 const enrollment = require("./routes/enrollment");
-var permissonNumber = require("./routes/permissonNumber");
+const permissonNumber = require("./routes/permissonNumber");
+const allCourses = require("./routes/allCourses");
 
 //const Announcements = require("./routes/announcements");
 //const file = require("./routes/file");
@@ -42,6 +57,7 @@ app.use('/users/courses/grades', grades) */
 
 app.use("/users", Users);
 app.use("/users/profile", profile);
+app.use("/courses", allCourses);
 app.use("/users/courses", Courses);
 app.use("/enrollment", enrollment);
 app.use("/permissonNumber", permissonNumber);

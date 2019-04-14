@@ -7,7 +7,12 @@ var SignUp = require("./services/signup");
 var GetProfile = require("./services/getProfile");
 var UpdateProfile = require("./services/updateProfile");
 const GetAllCourses = require("./services/getAllCourses");
+const GetMyCourses = require("./services/getMyCourses");
 const CreateNewCourse = require("./services/createNewCourse");
+const GetAnnouncements = require("./services/getAnnouncements");
+const GetAssignments = require("./services/getAssignments");
+const CreateAnnouncement = require("./services/createAnnouncement");
+
 function handleTopicRequest(topic_name, fname) {
   //var topic_name = 'root_topic';
   var consumer = connection.getConsumer(topic_name);
@@ -45,4 +50,8 @@ handleTopicRequest("signup", SignUp);
 handleTopicRequest("getProfile", GetProfile);
 handleTopicRequest("updateProfile", UpdateProfile);
 handleTopicRequest("getAllCourses", GetAllCourses);
+handleTopicRequest("getMyCourses", GetMyCourses);
 handleTopicRequest("createNewCourse", CreateNewCourse);
+handleTopicRequest("getAnnouncements", GetAnnouncements);
+handleTopicRequest("getAssignments", GetAssignments);
+handleTopicRequest("createAnnouncement", CreateAnnouncement);

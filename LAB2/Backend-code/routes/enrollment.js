@@ -57,8 +57,10 @@ route.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     //find Course object
+    console.log("courseId:" + req.body.courseId);
     Course.findById(req.body.courseId).then(course => {
       //define a map flag to check if user already exists
+      console.log("inside course");
       match = course.users.map(book => book.id).indexOf(req.user.id);
       if (match === 0) {
         res.json("user exists");
@@ -67,7 +69,7 @@ route.post(
         course.users.unshift(req.user);
         course
           .save()
-          .then(course => res.json({ success: course }))
+          .then(course => res.json({ success: course.users }))
           .catch(err => res.json({ message: err }));
       }
     });

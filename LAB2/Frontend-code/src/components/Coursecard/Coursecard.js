@@ -21,13 +21,14 @@ export class Coursecard extends Component {
     ];
     console.log("card courseId:" + this.props.id);
     return (
-      <div>
+      <div draggable={true}>
         <Link to={`/courses/${this.props.id}`} className="cardlink">
-          <Card className="cards searchcards">
+          <Card className="cards searchcards" draggable={false}>
             <img
               src={colorTemp[Number(this.props.num) % 3]}
               alt="cardcolor"
               className="cardtemp"
+              draggable={false}
             />
             <h4>
               <span className="cardlink">{this.props.dept}</span>
