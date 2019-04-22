@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 import "./courseInfo.css";
 
@@ -10,7 +11,8 @@ export class CourseInfo extends Component {
       cid: this.props.match.params.id,
       details: "",
       action: "",
-      status: ""
+      status: "",
+      Token: localStorage.getItem("jwtToken")
     };
     this.enrollHandler = this.enrollHandler.bind(this);
     this.waitlistHandler = this.waitlistHandler.bind(this);
@@ -39,7 +41,9 @@ export class CourseInfo extends Component {
     e.preventDefault();
     const data = { action: this.state.action };
     axios
-      .post(`http://localhost:3001/users/course/${this.state.cid}/home`, data)
+      .post(`${window.base_url}/users/course/${this.state.cid}/home`, data, {
+        headers: { Authorization: this.state.Token }
+      })
       .then(response => {
         if (response.data.message === "success") {
           alert("Action completed.");
@@ -52,10 +56,16 @@ export class CourseInfo extends Component {
     const data = { courseId: this.state.cid };
     e.preventDefault();
     axios
-      .post(`http://localhost:3001/enrollment`, data)
+      .post(window.base_url + "/enrollment", data, {
+        headers: { Authorization: this.state.Token }
+      })
       .then(res => {
         console.log(res);
-        alert("successfully enrolled");
+        if (res.data === "user exists") {
+          alert("you are already enrolled for this class");
+        } else {
+          alert("successfully enrolled");
+        }
       })
       .catch(err => {
         console.log(err);
@@ -63,16 +73,24 @@ export class CourseInfo extends Component {
   };
   componentDidMount() {
     axios
-      .get(`http://localhost:3001/users/courses/${this.state.cid}`)
+      .get(`${window.base_url}/users/courses/${this.state.cid}`, {
+        headers: { Authorization: this.state.Token }
+      })
       .then(response => {
-        if (response.data.message === "course not found") {
+        if (response.status == 400) {
           alert("Something went wrong!");
           this.prop.history.push("/course");
         } else {
+          console.log(response.data);
           this.setState({
             details: response.data
+
             //status: response.data.status
           });
+          const match = response.data.users
+            .map(user => user.type)
+            .indexOf("Student");
+          console.log(match);
         }
       });
   }
@@ -172,19 +190,25 @@ export class CourseInfo extends Component {
             </div>
           </div>
         </div>
-
-        <form onSubmit={this.enroll}>
-          <button
-            className="btn btn-primary as-btn"
-            name="submit"
-            value="submit"
-          >
-            enroll
-          </button>{" "}
-        </form>
+        {this.props.auth.user.type === "Student" ? (
+          <form onSubmit={this.enroll}>
+            <button
+              className="btn btn-primary as-btn"
+              name="submit"
+              value="submit"
+            >
+              enroll
+            </button>{" "}
+          </form>
+        ) : null}
       </div>
     );
   }
 }
-
-export default CourseInfo;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(
+  mapStateToProps,
+  {}
+)(withRouter(CourseInfo));

@@ -14,7 +14,7 @@ class People extends Component {
   }
   componentWillMount() {
     axios
-      .get(`http://localhost:3001/enrollment/${this.state.cid}`, {
+      .get(`${window.base_url}/enrollment/${this.state.cid}`, {
         courseId: "5ca9990d9691251f08720235"
       })
       .then(response => {

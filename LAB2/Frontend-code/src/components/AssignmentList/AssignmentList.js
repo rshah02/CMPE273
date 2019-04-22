@@ -19,7 +19,7 @@ export class AssignmentList extends Component {
       <div className="col-lg-12">
         <div id="list" className="assignmentList">
           <Link
-            to={`/courses/${this.props.cid}/Assignments/${
+            to={`/courses/${this.props.cid}/assignment/${
               this.props.assignmentId
             }`}
           >

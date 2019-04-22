@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
+
+import "./newAnnouncement.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "./newAnnouncement.css";
 class NewAnnouncement extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +24,7 @@ class NewAnnouncement extends Component {
     });
   }
   onSubmit(e) {
+    let Token = localStorage.jwtToken;
     e.preventDefault();
     const newAnnouncement = {
       announcementDetails: this.state.announcementDetails,
@@ -30,8 +32,11 @@ class NewAnnouncement extends Component {
     };
     axios
       .post(
-        `http://localhost:3001/users/courses/${this.props.cid}/Announcements`,
-        newAnnouncement
+        `${window.base_url}/users/courses/${this.props.cid}/Announcements`,
+        newAnnouncement,
+        {
+          headers: { Authorization: Token }
+        }
       )
       .then(response => {
         console.log(response.data);
@@ -42,7 +47,7 @@ class NewAnnouncement extends Component {
       <div className="newAnnouncement">
         <h2>Create New Announcement</h2>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
+          <div className="col-md-12 form-group">
             <label>Title:</label>
             <input
               className="form-control"
@@ -52,12 +57,13 @@ class NewAnnouncement extends Component {
               onChange={this.onChange}
             />
           </div>
-          <div className="col-lg-12 form-group">
-            <label lablefor="AnnouncementDetails">Enter Details </label>
+
+          <div className="col-md-12 form-group">
+            <label lablefor="announcementDetails">Enter Details </label>
             <ReactQuill
               value={this.state.announcementDetails}
               onChange={this.handleChange}
-              className="textarea rounded"
+              className="col-md-12"
             />
           </div>
           <button className="btn btn-primary" type="submit">

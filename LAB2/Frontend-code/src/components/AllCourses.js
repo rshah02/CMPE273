@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import { Link, withRouter } from "react-router-dom";
-
+import { connect } from "react-redux";
 import Navbar from "./Navbar/Navbar";
 import Header from "./Header/Header";
 class AllCourses extends Component {
@@ -16,7 +16,7 @@ class AllCourses extends Component {
   componentWillMount() {
     const Token = localStorage.getItem("jwtToken");
     console.log(this.props.match.params.id);
-    Axios.get("http://localhost:3001/courses", {
+    Axios.get(window.base_url + "/courses", {
       headers: { Authorization: Token }
     }).then(res => {
       this.setState({ AllCourses: res.data });
@@ -29,7 +29,7 @@ class AllCourses extends Component {
     const Token = localStorage.getItem("jwtToken");
     let course = { courseId: id };
     console.log(course);
-    Axios.post("http://localhost:3001/enrollment", course, {
+    Axios.post(window.base_url + "/enrollment", course, {
       headers: { Authorization: Token }
     }).then(response => {
       console.log(response.data);
@@ -63,29 +63,37 @@ class AllCourses extends Component {
                 <div className="col-md-2" />
                 <hr />
               </div>
-              {AllCourses.map((Announcement, index) => {
+              {AllCourses.map((course, index) => {
                 return (
                   <div key={index} className="row announcementList">
-                    <div className="col-md-4">{Announcement.courseName}</div>
-                    <div className="col-md-3">{Announcement.courseDept}</div>
+                    <div className="col-md-4">
+                      {" "}
+                      <Link to={`/courses/${course._id}/Home`}>
+                        {" "}
+                        {course.courseName}
+                      </Link>
+                    </div>
+                    <div className="col-md-3">{course.courseDept}</div>
                     <div className="col-md-3">
                       <label>Term: </label>
-                      {Announcement.courseTerm}
+                      {course.courseTerm}
                     </div>
                     <div className="col-md-2">
-                      <form
-                        name="abc"
-                        value={Announcement._id}
-                        onSubmit={this.enroll.bind(this, Announcement._id)}
-                      >
-                        <button
-                          className="btn btn-primary as-btn"
-                          type="submit"
-                          value="submit"
+                      {this.props.auth.user.type === "Student" ? (
+                        <form
+                          name="abc"
+                          value={course._id}
+                          onSubmit={this.enroll.bind(this, course._id)}
                         >
-                          Enroll
-                        </button>
-                      </form>
+                          <button
+                            className="btn btn-primary as-btn"
+                            type="submit"
+                            value="submit"
+                          >
+                            Enroll
+                          </button>
+                        </form>
+                      ) : null}
                     </div>
                     <hr />
                   </div>
@@ -100,4 +108,10 @@ class AllCourses extends Component {
   }
 }
 
-export default withRouter(AllCourses);
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(
+  mapStateToProps,
+  {}
+)(withRouter(AllCourses));

@@ -17,7 +17,7 @@ class NewAssignment extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
-
+    this.fileHandler = this.fileHandler.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -34,25 +34,42 @@ class NewAssignment extends Component {
       [e.target.name]: e.target.value
     });
   }
+  fileHandler = e => {
+    this.setState({
+      file: e.target.files[0]
+    });
+  };
   onSubmit(e) {
+    let Token = localStorage.jwtToken;
     e.preventDefault();
-    const newAssignment = {
+    let data = new FormData();
+
+    data.append("assignmentName", this.state.assignmentName);
+    data.append("file", this.state.file);
+    data.append("assignmentDetail", this.state.assignmentDetail);
+    data.append("assignmentType", this.state.assignmentType);
+    data.append("points", this.state.points);
+    data.append("dueDate", this.state.dueDate);
+    /* const newAssignment = {
       assignmentName: this.state.assignmentName,
       assignmentDetail: this.state.assignmentDetail,
       file: this.state.file,
       assignmentType: this.state.assignmentType,
       points: this.state.points,
       dueDate: this.state.dueDate
-    };
+    }; */
     console.log(this.props.cid);
     console.log(this.props.id);
     console.log(this.props.match.params.id);
     axios
       .post(
-        `http://localhost:3001/users/courses/${
+        `${window.base_url}/users/courses/${
           this.props.match.params.id
         }/assignments`,
-        newAssignment
+        data,
+        {
+          headers: { Authorization: Token }
+        }
       )
       .then(response => {
         this.props.history.push(
@@ -107,9 +124,8 @@ class NewAssignment extends Component {
             <input
               className="form-control"
               type="file"
-              name="file"
-              value={this.state.file}
-              onChange={this.onChange}
+              onChange={this.fileHandler}
+              required
             />
           </div>
           <div className="col-lg-12 form-group">
@@ -134,7 +150,7 @@ class NewAssignment extends Component {
 
 export const Textselect = ({ name, value, onClick }) => (
   <select name={name} value={value} onChange={onClick}>
-    <option value="assignment">Assiginment</option>
+    <option value="assignment">Assignment</option>
     <option value="Quiz">Quiz</option>
   </select>
 );

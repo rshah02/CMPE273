@@ -36,6 +36,6 @@ li a:active {
   background-color: rgb(242, 242, 242);
   color: white;
 }
-coursesidebarInner ul li:visited {
+coursesidebarInner ul li a:active {
   background-color: #0055a2;
 }

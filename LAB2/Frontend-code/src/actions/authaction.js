@@ -12,7 +12,7 @@ export function loginuser(data) {
 }
 export const signup = (request, history) => dispatch => {
   axios
-    .post("users/signup", {
+    .post(window.base_url + "/users/signup", {
       name: request.name,
       email: request.email,
       password: request.password,
@@ -41,7 +41,10 @@ export const signup = (request, history) => dispatch => {
 
 export const login = userData => dispatch => {
   axios
-    .post("users/login", { email: userData.email, password: userData.password })
+    .post(window.base_url + "/users/login", {
+      email: userData.email,
+      password: userData.password
+    })
     .then(res => {
       //const { token } = res.data;
       console.log(res.data);
@@ -70,7 +73,7 @@ export const setCurrentUser = decoded => {
 
 export const updateProfile = (request, history) => dispatch => {
   axios
-    .post("users/profile", {
+    .post(window.base_url + "users/profile", {
       name: request.name,
       email: request.email,
       password: request.password,

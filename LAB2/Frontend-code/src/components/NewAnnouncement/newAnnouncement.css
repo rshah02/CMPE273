@@ -1,3 +1,7 @@
+input {
+  width: 100%;
+}
+
 .newAnnouncement {
   border: 1px solid rgb(199, 205, 209);
   padding: 20px;

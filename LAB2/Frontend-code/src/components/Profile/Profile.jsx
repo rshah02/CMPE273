@@ -51,7 +51,7 @@ class Profile extends Component {
       about: this.state.about
     };
     axios
-      .post("http://localhost:3001/users/profile", user, {
+      .post(window.base_url + "/users/profile", user, {
         headers: { Authorization: Token }
       })
       .then(response => {
@@ -85,7 +85,7 @@ class Profile extends Component {
     console.log("server token:" + Token);
     console.log(decoded);
     axios
-      .get("http://localhost:3001/users/profile", {
+      .get(window.base_url + "/users/profile", {
         params: { email: decoded.email },
         headers: { Authorization: Token }
       })

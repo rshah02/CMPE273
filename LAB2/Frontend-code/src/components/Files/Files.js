@@ -17,7 +17,7 @@ export class Files extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:3001/users/courses/${this.state.cid}/file`)
+      .get(`${window.base_url}/users/courses/${this.state.cid}/file`)
       .then(response => {
         console.log(response.data);
         this.setState({
@@ -37,7 +37,7 @@ export class Files extends Component {
     let data = new FormData();
     data.append("lecturefile", this.state.file);
     axios
-      .post(`http://localhost:3001/users/courses/${this.state.cid}/file`, data)
+      .post(`${window.base_url}/users/courses/${this.state.cid}/file`, data)
       .then(response => {
         if (response.data === "success") {
           alert("File Uploaded.");
@@ -69,13 +69,15 @@ export class Files extends Component {
                     height="100px"
                   >
                     <a
-                      href={`http://localhost:3001/files/uploads/${file}`}
+                      href={`${window.base_url}/files/uploads/${file}`}
                       download
                       target="_blank"
                       rel="noreferrer"
                     >
                       <embed
-                        src={`http://localhost:3001/files/uploads/${file}#toolbar=1&navpanes=1&scrollbar=1`}
+                        src={`${
+                          window.base_url
+                        }/files/uploads/${file}#toolbar=1&navpanes=1&scrollbar=1`}
                         width="100%"
                         height="500px"
                         className="embedd"
@@ -84,7 +86,7 @@ export class Files extends Component {
                       {file}
                     </a>
                     {/*  <iframe
-                      src={`http://localhost:3001/files/uploads/${file}`}
+                      src={`${window.base_url}/files/uploads/${file}`}
                       width="700"
                       height="500"
                       id="frame"

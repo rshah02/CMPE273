@@ -48,7 +48,7 @@ class newCourse extends Component {
       lectureTime: this.state.lectureTime
     };
     axios
-      .post("http://localhost:3001/users/courses", course, {
+      .post(window.base_url + "/users/courses", course, {
         headers: { Authorization: Token }
       })
       .then(response => {

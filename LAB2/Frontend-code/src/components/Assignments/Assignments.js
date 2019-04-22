@@ -16,10 +16,9 @@ class Assignments extends Component {
   componentWillMount() {
     const Token = localStorage.getItem("jwtToken");
     axios
-      .get(
-        `http://localhost:3001/users/courses/${this.state.cid}/assignments`,
-        { headers: { Authorization: Token } }
-      )
+      .get(`${window.base_url}/users/courses/${this.state.cid}/assignments`, {
+        headers: { Authorization: Token }
+      })
       .then(response => {
         console.log("assignmentresponse:" + response.data);
         if (response) {

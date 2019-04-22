@@ -19,17 +19,17 @@ class Announcements extends Component {
   componentDidMount() {
     console.log(this.props.match.params.id);
     Axios.get(
-      `http://localhost:3001/users/courses/${
+      `${window.base_url}/users/courses/${
         this.props.match.params.id
-      }/Announcements?page=${this.state.page}`
+      }/Announcements`
     ).then(res => {
       console.log(res.data);
       this.setState({
-        Announcements: res.data.announcements,
-        displayAnnouncements: res.data.announcements.slice(0, this.state.size),
+        Announcements: res.data,
+        displayAnnouncements: res.data.slice(0, this.state.size),
         offset: 0
       });
-      console.log("response:" + res.data);
+      console.log("response:" + res.data.announcements);
       console.log("state announcement:" + this.state.Announcements);
     });
   }
@@ -64,26 +64,30 @@ class Announcements extends Component {
     const isFaculty = true;
     return (
       <div>
-        <div className="col-md-12 auto announcementWraper">
-          <div className>
+        <div className="row announcementWraper">
+          <div className="col-md-12">
             {isFaculty ? <NewAnnouncement cid={this.state.cid} /> : null}
           </div>
+        </div>
+        <div className="row">
           <h2>Announcements</h2>
-          <div>
-            <button
-              className="btn btn-primary as-btn"
-              onClick={this.handlePrev}
-            >
-              previous
-            </button>
+          <div className="col-md-12">
             <button
               className="btn btn-primary as-btn"
               onClick={this.handleNext}
             >
               next
             </button>
+            <button
+              className="btn btn-primary as-btn"
+              onClick={this.handlePrev}
+            >
+              previous
+            </button>
           </div>
-          <div>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
             {displayAnnouncements.map((Announcement, index) => {
               return (
                 <div key={index} className="row announcementList">

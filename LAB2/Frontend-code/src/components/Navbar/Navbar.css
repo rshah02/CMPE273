@@ -92,7 +92,7 @@ i {
   transform: translate3d(0, 0, 0);
   transition: left 0.4s;
   transition-timing-function: linear;
-  background: transparent;
+
   box-shadow: 3px 3px 3px whitesmoke;
 
   width: 500px;

@@ -33,7 +33,8 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
-      courses: ""
+      courses: "",
+      enrolled: ""
     };
   }
   //Dummy componenet did mount
@@ -41,12 +42,15 @@ class Dashboard extends Component {
     const Token = localStorage.getItem("jwtToken");
     console.log(Token);
     axios
-      .get("http://localhost:3001/users/courses", {
+      .get(window.base_url + "/users/courses", {
         headers: { Authorization: Token }
       })
       .then(response => {
         let courses = response.data;
         console.log(response.data);
+        if (response.data.length == 0) {
+          console.log("no records");
+        }
         courses = courses.map((course, i) => {
           return {
             ...course,
@@ -69,6 +73,7 @@ class Dashboard extends Component {
 
   render() {
     let courses = [];
+
     Object.assign(courses, this.state.courses);
 
     const AbsoluteGrid = createAbsoluteGrid(Card, {}, true);
@@ -83,7 +88,7 @@ class Dashboard extends Component {
 
         <div className="pageContent">
           {isStudent ? (
-            <Link to="/course/search">
+            <Link to="/AllCourses">
               <button className="btn btn-primary as-btn">Search Course</button>{" "}
             </Link>
           ) : (
@@ -99,14 +104,18 @@ class Dashboard extends Component {
             <Route path="/Dashboard/newCourse" component={newCourse} />
           </Switch>
         </div>
-        <AbsoluteGrid
-          items={courses}
-          dragEnabled
-          onMove={this.onMove}
-          responsive
-          itemHeight={330}
-          itemWidth={360}
-        />
+        {courses.length === 0 ? (
+          <h2>You have not enrolled for any classes yet</h2>
+        ) : (
+          <AbsoluteGrid
+            items={courses}
+            dragEnabled
+            onMove={this.onMove}
+            responsive
+            itemHeight={330}
+            itemWidth={360}
+          />
+        )}
       </div>
     );
   }

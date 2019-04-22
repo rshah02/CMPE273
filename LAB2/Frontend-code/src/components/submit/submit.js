@@ -15,7 +15,7 @@ class submit extends Component {
   }
   componentWillMount() {
     axios
-      .get(`http://localhost:3001/users/courses/${this.state.cid}/assignments`)
+      .get(`${window.base_url}/users/courses/${this.state.cid}/assignments`)
       .then(response => {
         console.log("assignmentresponse:" + response.data);
         if (response) {

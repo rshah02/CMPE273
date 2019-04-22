@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-
 import "../../App.css";
 import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
@@ -14,6 +13,7 @@ import NewAssignment from "../NewAssignment/NewAssignment";
 import submit from "../submit/submit";
 import Files from "../Files/Files";
 import CourseInfo from "../CourseInfo/CourseInfo";
+import Submission from "../submission/Submission";
 
 class courses extends Component {
   constructor(props) {
@@ -22,17 +22,6 @@ class courses extends Component {
       userId: "",
       books: []
     };
-  }
-  //get the books data from backend
-  componentDidMount() {
-    axios
-      .get("http://localhost:3001/users/courses", { params: { userId: "346" } })
-      .then(response => {
-        //update the state with the response data
-        this.setState({
-          books: [...this.state.books, ...response.data]
-        });
-      });
   }
 
   render() {
@@ -52,9 +41,7 @@ class courses extends Component {
             <div className="col-md-10">
               <div className="col-md-12 courseContents">
                 <Switch>
-                  <Route path="/courses/home" component={Home} />
                   <Route path="/courses/people" component={People} />
-                  {/*  <Route path="/courses/Announcements" component={Announcements} /> */}
                   <Route
                     path="/courses/:id/Announcements"
                     component={Announcements}
@@ -64,13 +51,14 @@ class courses extends Component {
                     component={Assignments}
                   />
                   <Route
+                    path="/courses/:id/assignment/:asid"
+                    component={Submission}
+                  />
+                  <Route
                     path="/courses/:id/NewAssignment"
                     component={NewAssignment}
                   />
-                  <Route
-                    path="/courses/:id/Assignments/:cid"
-                    component={submit}
-                  />
+
                   <Route path="/courses/:id/Files" component={Files} />
                   <Route path="/courses/:id/Home" component={CourseInfo} />
                   <Route path="/courses/:id/People" component={People} />

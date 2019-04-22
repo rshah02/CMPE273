@@ -6,7 +6,7 @@ export const getProfile = () => dispatch => {
   const decoded = jwt_decode(token);
 
   axios
-    .get("http://localhost:3001/users/profile", {
+    .get(window.base_url + "/users/profile", {
       params: { email: decoded.email }
     })
     .then(response => {

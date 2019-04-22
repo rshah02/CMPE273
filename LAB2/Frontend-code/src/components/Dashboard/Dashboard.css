@@ -9,3 +9,6 @@
   width: auto;
   float: right;
 }
+.absoluteGrid {
+  overflow: hidden;
+}
