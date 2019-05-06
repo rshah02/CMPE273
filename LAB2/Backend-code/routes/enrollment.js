@@ -37,19 +37,6 @@ route.get("/:id", (req, res) => {
       console.log(err);
       res.json(err);
     });
-
-  /*const sql =
-    "SELECT * from enrollment e,users u WHERE e.courseId=" +
-    mysql.escape(req.body.courseId) +
-    " AND e.userId=u.userId";
-
-  con.query(sql, (err, result) => {
-    if (err) {
-      res.status(400).send({ message: err });
-    } else {
-      res.status(200).json(result);
-    }
-  }); */
 });
 //add enrollment
 route.post(

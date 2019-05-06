@@ -1,8 +1,8 @@
 var connection = new require("./kafka/Connection");
 //topics files
 //var signin = require('./services/signin.js');
-var Books = require("./services/books.js");
-var Login = require("./services/login");
+
+var login = require("./services/login");
 var SignUp = require("./services/signup");
 var GetProfile = require("./services/getProfile");
 var UpdateProfile = require("./services/updateProfile");
@@ -45,13 +45,13 @@ function handleTopicRequest(topic_name, fname) {
 // Add your TOPICs here
 //first argument is topic name
 //second argument is a function that will handle this topic request
-handleTopicRequest("login", Login);
+handleTopicRequest("login", login);
+//handleTopicRequest("getProfile", GetProfile);
 handleTopicRequest("signup", SignUp);
-handleTopicRequest("getProfile", GetProfile);
 handleTopicRequest("updateProfile", UpdateProfile);
 handleTopicRequest("getAllCourses", GetAllCourses);
-handleTopicRequest("getMyCourses", GetMyCourses);
+//handleTopicRequest("getMyCourses", GetMyCourses);
 handleTopicRequest("createNewCourse", CreateNewCourse);
-handleTopicRequest("getAnnouncements", GetAnnouncements);
-handleTopicRequest("getAssignments", GetAssignments);
-handleTopicRequest("createAnnouncement", CreateAnnouncement);
+//handleTopicRequest("getAnnouncements", GetAnnouncements);
+//handleTopicRequest("getAssignments", GetAssignments);
+//handleTopicRequest("createAnnouncement", CreateAnnouncement);

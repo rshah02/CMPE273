@@ -17,6 +17,7 @@ app.use(function(req, res, next) {
     "Access-Control-Allow-Methods",
     "GET,HEAD,OPTIONS,POST,PUT,DELETE"
   );
+  res.header("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
@@ -32,9 +33,6 @@ const enrollment = require("./routes/enrollment");
 const permissonNumber = require("./routes/permissonNumber");
 const allCourses = require("./routes/allCourses");
 
-//const Announcements = require("./routes/announcements");
-//const file = require("./routes/file");
-//const fileUpdload = require("express-fileupload");
 //passport Middleware
 require("./middlewares/passport")(passport);
 
@@ -45,26 +43,12 @@ app.use(express.static(__dirname + "/public"));
 
 //Routes
 
-/*var courses = require('./routes/courses')
-var permissonNumber = require('./routes/permissonNumber')
-var enrollment = require('./routes/enrollment')
-var grades = require('./routes/grades')
-
-app.use('/courses', courses)
-app.use('/permissonNumber', permissonNumber)
-app.use('/enrollment', enrollment)
-app.use('/users/courses/grades', grades) */
-
 app.use("/users", Users);
 app.use("/users/profile", profile);
 app.use("/courses", allCourses);
 app.use("/users/courses", Courses);
 app.use("/enrollment", enrollment);
 app.use("/permissonNumber", permissonNumber);
-
-//app.use("/courses/:id/file", file);
-//app.use("/users/courses/:id/Announcements", Announcements);
-//app.use("/file", file);
 app.listen(port, () => {
   console.log("Server is running on port: " + port);
 });

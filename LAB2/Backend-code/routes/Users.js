@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-//const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 var con = require("../database/db");
 const passport = require("passport");
@@ -10,7 +9,8 @@ const mongoose = require("mongoose");
 var kafka = require("../kafka/client");
 var gravatar = require("gravatar");
 // //kafka login
-router.post("/login", function(req, res) {
+
+/*router.post("/login", function(req, res) {
   console.log("Inside login POST");
   console.log("Request Body: ", req.body);
   //Kafka request
@@ -41,8 +41,11 @@ router.post("/login", function(req, res) {
       }
     }
   });
-});
+}); */
 
+//kafka login
+//kafka signup
+/*
 router.post("/signup", (req, res) => {
   kafka.make_request("signup", req.body, function(err, result) {
     console.log("In results Signup");
@@ -59,24 +62,8 @@ router.post("/signup", (req, res) => {
     }
   });
 });
-
-router.get(
-  "/mycourses",
-
-  (req, res) => {
-    const sql =
-      "SELECT * from enrollment e,course c WHERE e.userId=346" +
-      " AND e.courseId=c.courseId";
-    con.query(sql, (err, results) => {
-      if (results) {
-        res.status(200).json(results);
-        console.log(results);
-      } else {
-        res.status(400).json({ message: err });
-      }
-    });
-  }
-);
+*/
+//kaffka signup
 
 router.get(
   "/current",
@@ -86,12 +73,10 @@ router.get(
     res.json(req.user);
   }
 );
-module.exports = router;
 
 //local code
-
 //login
-/*router.post("/login", (req, res) => {
+router.post("/login", (req, res) => {
   var email = req.body.email;
   var password = req.body.password;
 
@@ -123,11 +108,10 @@ module.exports = router;
       }
     });
   });
-}); */
+});
 
 //signup
-/*router.post("/signup", (req, res) => {
-  
+router.post("/signup", (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       return res.status(400).json({ email: "email already exists" });
@@ -156,5 +140,6 @@ module.exports = router;
           .catch(err => console.log(err));
       });
     }
-  }); 
-}); */
+  });
+});
+module.exports = router;

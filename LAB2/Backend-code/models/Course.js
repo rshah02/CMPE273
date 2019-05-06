@@ -51,6 +51,24 @@ const CourseSchema = new Schema({
       points: { type: String },
       dueDate: { type: Date }
     }
+  ],
+  submission: [
+    {
+      submissionId: { type: Schema.Types.ObjectId },
+      assignmentId: { type: String },
+      submitfile: { type: String },
+      userId: { type: String },
+      Comment: { type: String }
+    }
+  ],
+  grade: [
+    {
+      id: { type: Schema.Types.ObjectId },
+      submissionId: { type: String },
+      assignmentId: { type: String },
+      userId: { type: String },
+      grade: { type: String }
+    }
   ]
 });
 
