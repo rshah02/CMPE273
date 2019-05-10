@@ -1,0 +1,26 @@
+{
+  "name": "lab3",
+  "version": "1.0.0",
+  "description": "canvas prototype using graphQL",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hariae/CMPE273-SP19-63.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "graphql",
+    "react",
+    "REST"
+  ],
+  "author": "Rohan Shah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hariae/CMPE273-SP19-63/issues"
+  },
+  "homepage": "https://github.com/Hariae/CMPE273-SP19-63#readme"
+}
