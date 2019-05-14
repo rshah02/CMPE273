@@ -1,0 +1,53 @@
+.App {
+  text-align: center;
+}
+.signin {
+  font-family: "proxima nova", Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.4;
+  background-color: #f9f9f9;
+  position: relative;
+  overflow: auto;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  height: auto;
+  margin: 100px auto 8px;
+  margin-top: 100px;
+  width: 400px;
+  min-width: 300px;
+  padding: 20px;
+}
+.auth {
+  background-color: #fff;
+  border-color: #ddd #ddd #d8d8d8;
+  box-shadow: 0 2px 0 rgba(175, 175, 175, 0.12);
+}
+
+.loginHeaderContainer {
+  position: relative;
+  margin: 0 auto;
+  padding: 20px 0;
+  box-sizing: border-box;
+}
+
+.loginHeaderContainer h1 {
+  font-size: 24px;
+  font-weight: lighter;
+  line-height: 26px;
+  text-align: right;
+}
+.profilepic {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+}
+
+.profilecolumn {
+  text-align: center;
+}
+
+.form-inline {
+  font-size: 1.2em;
+}

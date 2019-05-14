@@ -1,0 +1,43 @@
+.assignmentList {
+  border: 0.5px solid;
+  border-color: rgb(199, 205, 209);
+  box-shadow: 0.7px;
+  margin: 10px auto;
+  background-color: rgb(255, 255, 255);
+}
+.as-btn {
+  text-align: center;
+  background-color: rgb(0, 85, 162);
+  border-color: rgb(0, 85, 162);
+  box-sizing: border-box;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.assignmentWraper {
+  background-color: rgb(245, 245, 245);
+  border: 0.5px solid;
+  border-color: rgb(199, 205, 209);
+  margin: 20px;
+  padding: 20px;
+}
+
+.assignmentList {
+  text-align: left;
+  padding: 10px;
+}
+.assignmentList a {
+  color: black;
+}
+
+.assignmentList h2 {
+  border-bottom: 1px solid;
+  border-color: rgb(199, 205, 209);
+  padding: 10px;
+  text-align: left;
+}
+
+.abutton {
+  float: right;
+}

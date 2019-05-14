@@ -1,0 +1,14 @@
+.as-btn {
+  text-align: center;
+  background-color: rgb(0, 85, 162);
+  border-color: rgb(0, 85, 162);
+  box-sizing: border-box;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  width: auto;
+  float: right;
+}
+.absoluteGrid {
+  overflow: hidden;
+}

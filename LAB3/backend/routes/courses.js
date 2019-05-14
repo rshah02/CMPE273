@@ -35,15 +35,6 @@ route.get("/", passport.authenticate("jwt", { session: false }), function(
   req,
   res
 ) {
-  //kafka request
-
-  /*console.log("user:" + req.user._id);
-  kafka.make_request("getMyCourses", req.user, function(err, result) {
-    if (result) {
-      console.log("result: " + result);
-      res.status(200).json(result);
-    } else res.status(400).json({ message: err });
-  });*/
   Course.find({ users: { _id: req.user.id } })
     .then(result => {
       console.log(result);
@@ -117,15 +108,6 @@ route.get(
   function(req, res) {
     console.log("params:" + req.params.id);
 
-    //kafka code
-    /*=  kafka.make_request("getAssignments", req.params, function(err, result) {
-      if (err) {
-        res.status(400).json({ message: "No assignments" + err });
-      } else {
-        res.status(200).json(result);
-      }
-    });  */
-    //
     Course.findById(req.params.id)
       .then(course => {
         console.log("assignments:" + course.assignments);
@@ -139,23 +121,6 @@ route.get(
 
 // create new announcement
 route.post("/:id/Announcements", function(req, res) {
-  // { ...req.params, page: req.query.page }
-  /* kafka.make_request(
-    "createAnnouncement",
-    { ...req.body, params: req.params },
-    function(err, result) {
-      if (err) {
-        res.status(400).json({ message: "No announecements" });
-      } else {
-        if (result.message === "exists") {
-          res.status(500).json({ message: "already Exists" });
-        } else {
-          console.log("callBack:" + result);
-          res.status(200).json(result);
-        }
-      }
-    }
-  );*/
   console.log("called");
 
   Course.findById(req.params.id).then(course => {
@@ -264,23 +229,6 @@ route.post("/quiz", function(req, res) {
 //Anouncements kafka
 //Create New Announcements
 route.post("/:id/Announcements", function(req, res) {
-  // { ...req.params, page: req.query.page }
-  /* kafka.make_request(
-    "createAnnouncement",
-    { ...req.body, params: req.params },
-    function(err, result) {
-      if (err) {
-        res.status(400).json({ message: "No announecements" });
-      } else {
-        if (result.message === "exists") {
-          res.status(500).json({ message: "already Exists" });
-        } else {
-          console.log("callBack:" + result);
-          res.status(200).json(result);
-        }
-      }
-    }
-  );*/
   console.log("called");
 
   Course.findById(req.params.id).then(course => {
@@ -311,18 +259,6 @@ route.get("/:id/Announcements", function(req, res) {
   console.log("=========");
   console.log(req.query.page);
   console.log("=========");
-  // { ...req.params, page: req.query.page },
-  /* kafka.make_request("getAnnouncements", req.params, function(err, result) {
-    if (err) {
-      res.status(500).json({ message: "No announecements" });
-    } else {
-      if (result) {
-        res.status(200).json(result);
-      } else if (result == null) {
-        res.status(500).json({ message: "no announcements" });
-      }
-    }
-  }); */
   Course.findById(req.params.id)
     .then(course => {
       console.log("announcements:" + course.announcements);
@@ -338,9 +274,7 @@ route.post("/:id/file", (req, res, next) => {
   console.log(req.files.lecturefile.name);
   let uploadFile = req.files.lecturefile;
   const fileName = req.files.lecturefile.name;
-  // const fileNameSplit = req.files.file.name.split(".");
-  //const ext = fileNameSplit[fileNameSplit.length - 1];
-  //const fileName = `${req.user.id}.${ext}`;
+
   console.log("reqparams:" + req.params.id);
   console.log(fileName);
   console.log(uploadFile);
@@ -351,9 +285,6 @@ route.post("/:id/file", (req, res, next) => {
       return res.status(500).send(err);
     }
     console.log("path:" + `${__dirname}/../public/files/${fileName}`);
-    /* res.json({
-      file: `public/${req.files.lecturefile.name}`
-    }); */
   });
   Course.findById(req.params.id)
     .then(course => {
@@ -487,60 +418,3 @@ route.post(
 );
 //submission
 module.exports = route;
-
-//CREATE NEW COURSE
-/*Course.findOne({ courseName: req.body.courseName }).then(course => {
-      if (course) {
-        return res.status(400).json({ course: "course Already exists" });
-      } else {
-        const newCourse = new Course({
-          _id: new mongoose.Types.ObjectId(),
-          courseName: req.body.courseName,
-          courseDept: req.body.courseDept,
-          courseTerm: req.body.courseTerm,
-          courseDescription: req.body.courseTerm,
-          courseRoom: req.body.courseRoom,
-          courseCapacity: req.body.courseCapacity,
-          waitlistCapacity: req.body.courseCapacity,
-          lectureTime: req.body.lectureTime
-        });
-        newCourse
-          .save()
-          .then(course => {
-            course.users.push(req.user);
-            course
-              .save()
-              .then(course => {
-                console.log(course.users);
-                res.json({ message: "added course successfully" });
-              })
-              .catch(err => console.log(err));
-            console.log(course);
-          })
-
-          .catch(err => console.log(err));
-      }
-    })*/
-//GET ANNOUNCEMENTS
-/*console.log("courseId:" + req.params.id);
-  Course.findById(req.params.id)
-    .then(course => {
-      console.log("announcements:" + course.announcements);
-      res.status(200).json(course.announcements);
-    })
-    .catch(err => {
-      res.status(500).json({ message: err });
-    }); */
-//GET ANNOUNCEMENTS
-//GET MY COURSES
-/*console.log(req.user.id);
-  Course.find({ users: { _id: req.user.id } })
-    .then(result => {
-      console.log(result);
-      res.status(200).json(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(400).json({ message: err });
-    });*/
-//GET MY COURSES

@@ -1,0 +1,13 @@
+#list ul li {
+  display: inline;
+}
+.assignmentList {
+  border: 0.5px solid grey;
+  box-shadow: 0.7px;
+  margin: 10px auto;
+  background-color: white;
+}
+.assignmentList {
+  text-align: left;
+  padding: 10px;
+}
